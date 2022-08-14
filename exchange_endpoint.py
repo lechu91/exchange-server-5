@@ -205,7 +205,7 @@ def fill_order(new_order,txes=[]):
         session.add(child_order)
         session.commit()
 
-execfile('gen_keys.py')
+# execfile('gen_keys.py')
 
 def execute_txes(txes):
     if txes is None:
