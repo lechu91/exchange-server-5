@@ -373,7 +373,7 @@ def trade():
                       'tx_id': payload.get("tx_id"),
                       'signature': sig}
 
-        new_order_fields = ['sender_pk','receiver_pk','buy_currency','sell_currency','buy_amount','sell_amount','signature','tx_id']
+        new_order_fields = ['sender_pk','receiver_pk','buy_currency','sell_currency','buy_amount','sell_amount','tx_id','signature']
         new_order = Order(**{f:order_data[f] for f in new_order_fields})
 
         g.session.add(new_order)
