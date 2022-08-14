@@ -33,7 +33,7 @@ algo_sk, algo_pk = account.generate_account()
 
 mnemonic_secret_alg = mnemonic.from_private_key(algo_sk)
 print("First mnemonic Alg")
-print(mnemonic_secret_alh)
+print(mnemonic_secret_alg)
 
 with open('alg_mnemonic.txt', 'w') as f:
     f.write(mnemonic_secret_alg)
