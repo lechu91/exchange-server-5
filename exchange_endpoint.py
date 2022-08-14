@@ -26,13 +26,19 @@ acct,mnemonic_secret_eth = w3.eth.account.create_with_mnemonic()
 with open('eth_mnemonic.txt', 'w') as f:
     f.write(mnemonic_secret_eth)
 
+print("First mnemonic Eth")
+print(mnemonic_secret_eth)
+    
 algo_sk, algo_pk = account.generate_account()
 
 mnemonic_secret_alg = mnemonic.from_private_key(algo_sk)
+print("First mnemonic Alg")
+print(mnemonic_secret_alh)
 
 with open('alg_mnemonic.txt', 'w') as f:
     f.write(mnemonic_secret_alg)
 
+    
 # TODO: make sure you implement connect_to_algo, send_tokens_algo, and send_tokens_eth
 from send_tokens import connect_to_algo, connect_to_eth, send_tokens_algo, send_tokens_eth
 
@@ -127,6 +133,7 @@ def get_algo_keys(filename = "alg_mnemonic.txt"):
     
     algo_sk = mnemonic.to_private_key(mnemonic_secret)
     algo_pk = mnemonic.to_public_key(mnemonic_secret)
+
  
     return algo_sk, algo_pk
 
