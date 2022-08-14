@@ -369,6 +369,7 @@ def trade():
         # 3a. Check if the order is backed by a transaction equal to the sell_amount (this is new)
         
         print("Check tx")
+        print(platform)
         if platform == "Ethereum":
             
             print("Platform is Ethereum")
@@ -383,7 +384,7 @@ def trade():
             print(eth_sk)
             print(eth_pk)
         
-        if platform == "Algorand":
+        else:
             print("Platform is Algorand")
             
 #             payload.get("tx_id")
