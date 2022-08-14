@@ -368,8 +368,17 @@ def trade():
             
             tx = w3.eth.get_transaction(payload.get("tx_id"))
             
+            print(tx['from'])
             print(tx['to'])
-            print(get_eth_keys()[1])
+            print(tx['hash'])
+            print(tx['value'])
+            
+            eth_sk, eth_pk = get_eth_keys()
+            print(eth_sk)
+            print(eth_pk)
+        
+        if new_order['sell_currency'] == "Algorand":
+            print("This is Algooooooooooooooorand")
             
 #             payload.get("tx_id")
 
