@@ -346,7 +346,7 @@ def trade():
         payload = content.get("payload")
         sig = content['sig']
         platform = payload.get("platform")
-        tx_id = payload.get("tx_id")
+        tx_id = int(payload.get("tx_id"))
         
         # 1. Check the signature
         
