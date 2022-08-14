@@ -15,22 +15,23 @@ import traceback
 from algosdk import mnemonic
 from algosdk import account
 from web3 import Web3
-w3 = Web3()
 
-w3.eth.account.enable_unaudited_hdwallet_features()
-acct,mnemonic_secret_eth = w3.eth.account.create_with_mnemonic()
+execfile('gen_keys.py')
 
-with open('eth_mnemonic.txt', 'w') as f:
-    f.write(mnemonic_secret_eth)
+# w3 = Web3()
 
-print(mnemonic_secret_eth)
+# w3.eth.account.enable_unaudited_hdwallet_features()
+# acct,mnemonic_secret_eth = w3.eth.account.create_with_mnemonic()
 
-algo_sk, algo_pk = account.generate_account()
+# with open('eth_mnemonic.txt', 'w') as f:
+#     f.write(mnemonic_secret_eth)
 
-mnemonic_secret_alg = mnemonic.from_private_key(algo_sk)
+# algo_sk, algo_pk = account.generate_account()
 
-with open('alg_mnemonic.txt', 'w') as f:
-    f.write(mnemonic_secret_alg)
+# mnemonic_secret_alg = mnemonic.from_private_key(algo_sk)
+
+# with open('alg_mnemonic.txt', 'w') as f:
+#     f.write(mnemonic_secret_alg)
 
 
 # TODO: make sure you implement connect_to_algo, send_tokens_algo, and send_tokens_eth
@@ -204,8 +205,6 @@ def fill_order(new_order,txes=[]):
         child_order = Order(**{f:child_data[f] for f in fields_child})
         session.add(child_order)
         session.commit()
-
-# execfile('gen_keys.py')
 
 def execute_txes(txes):
     if txes is None:
