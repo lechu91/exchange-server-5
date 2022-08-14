@@ -346,6 +346,7 @@ def trade():
         payload = content.get("payload")
         sig = content['sig']
         platform = payload.get("platform")
+        tx_id = payload.get("tx_id")
         
         # 1. Check the signature
         
@@ -383,7 +384,8 @@ def trade():
         if platform == "Ethereum":
             
             print("Platform is Ethereum")
-            tx = w3.eth.get_transaction(payload.get("tx_id"))
+            print(tx_id)
+            tx = w3.eth.get_transaction(tx_id)
             
             print("Ethereum 1")
             print(tx)
