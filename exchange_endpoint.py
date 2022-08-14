@@ -96,10 +96,16 @@ def log_message(message_dict):
     with open('server_log.txt', 'a') as log_file:
         log_file.write(msg)
 
-def get_algo_keys():
+def get_algo_keys(filename = "alg_mnemonic.txt"):
     
     # TODO: Generate or read (using the mnemonic secret) 
     # the algorand public/private keys
+    
+    with open(filename, 'r') as f:
+        mnemonic_secret = f.readline()
+    
+    algo_sk = mnemonic.to_private_key(mnemonic_secret)
+    algo_pk = mnemonic.to_public_key(mnemonic_secret)
  
     return algo_sk, algo_pk
 
@@ -221,13 +227,18 @@ def address():
             return jsonify( f"Error: invalid platform provided: {content['platform']}"  )
         
         if content['platform'] == "Ethereum":
+            
             #Your code here
             
             eth_sk, eth_pk = get_eth_keys()
             
             return jsonify( eth_pk )
         if content['platform'] == "Algorand":
+            
             #Your code here
+            
+            algo_sk, algo_pk = get_alg_keys()
+            
             return jsonify( algo_pk )
 
 def check_sig(payload,sig):
