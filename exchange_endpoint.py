@@ -334,12 +334,16 @@ def trade():
             return jsonify( False )
         
         # Your code here
+
+        payload = content.get("payload")
+        sig = content['sig']
         
         # 1. Check the signature
         
         print("Check the signature")
         
         if not check_sig(payload,sig):
+            print("Return jsonify false")
             return jsonify( False )
         
         # 2. Add the order to the table
