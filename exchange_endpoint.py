@@ -273,7 +273,7 @@ def address():
             return jsonify( algo_pk )
         
         else:
-            retun jsonify( false )
+            return jsonify( false )
 
 def check_sig(payload,sig):
     
