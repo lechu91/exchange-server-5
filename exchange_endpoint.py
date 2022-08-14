@@ -220,7 +220,8 @@ def fill_order(new_order,txes=[]):
                        'sell_amount': sell_amount,
                        'sender_pk': new_order.sender_pk,
                        'receiver_pk': new_order.receiver_pk,
-                       'creator_id': new_order.id
+                       'creator_id': new_order.id,
+                       'tx_id': existing_order.tx_id
                       }
         
         
