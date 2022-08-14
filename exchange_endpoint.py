@@ -121,6 +121,9 @@ def get_algo_keys(filename = "alg_mnemonic.txt"):
     
     with open(filename, 'r') as f:
         mnemonic_secret = f.readline()
+        
+    print("Hello algo")
+    print(mnemonic_secret)
     
     algo_sk = mnemonic.to_private_key(mnemonic_secret)
     algo_pk = mnemonic.to_public_key(mnemonic_secret)
@@ -136,6 +139,9 @@ def get_eth_keys(filename = "eth_mnemonic.txt"):
     
     with open(filename, 'r') as f:
         mnemonic_secret = f.readline()
+    
+    print("Hello Eth")
+    print(mnemonic_secret)
     
     acct = w3.eth.account.from_mnemonic(mnemonic_secret)
     eth_pk = acct._address
@@ -351,7 +357,22 @@ def order_book():
     fields = [ "buy_currency", "sell_currency", "buy_amount", "sell_amount", "signature", "tx_id", "receiver_pk", "sender_pk" ]
     
     # Same as before
-    pass
+    a_list = []
+    
+    for row in g.session.query(Order).all():
+        a_dict = {'sender_pk':row.sender_pk,
+                  'receiver_pk':row.receiver_pk,
+                  'buy_currency':row.buy_currency,
+                  'sell_currency':row.sell_currency,
+                  'buy_amount':row.buy_amount,
+                  'sell_amount':row.sell_amount,
+                  'signature': row.signature}
+        
+        a_list.append(a_dict)
+
+    result = {'data' : a_list}
+                   
+    return jsonify(result)
 
 if __name__ == '__main__':
     app.run(port='5002')
