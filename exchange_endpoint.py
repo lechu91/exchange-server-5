@@ -136,19 +136,26 @@ def get_algo_keys(filename = "alg_mnemonic.txt"):
 
 
 def get_eth_keys(filename = "eth_mnemonic.txt"):
+    print("Checkpoint1")
     w3 = Web3()
-    
+    print("Checkpoint2")
     # TODO: Generate or read (using the mnemonic secret) 
     # the ethereum public/private keys
+    print("Checkpoint3")
     
 #     with open(filename, 'r') as f:
 #         mnemonic_secret = f.readline()
     
+    print("Checkpoint4")
     mnemonic_secret = "early alarm fatigue budget year fetch doll deal early goose scare bicycle"
     
+    print("Checkpoint5")
     acct = w3.eth.account.from_mnemonic(mnemonic_secret)
+    print("Checkpoint6")
     eth_pk = acct._address
+    print("Checkpoint7")
     eth_sk = acct._private_key
+    print("Checkpoint8")
 
     return eth_sk, eth_pk
   
