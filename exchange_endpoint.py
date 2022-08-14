@@ -16,7 +16,7 @@ from algosdk import mnemonic
 from algosdk import account
 from web3 import Web3
 
-# execfile('gen_keys.py')
+# Generate private keys
 
 w3 = Web3()
 
@@ -32,7 +32,6 @@ mnemonic_secret_alg = mnemonic.from_private_key(algo_sk)
 
 with open('alg_mnemonic.txt', 'w') as f:
     f.write(mnemonic_secret_alg)
-
 
 # TODO: make sure you implement connect_to_algo, send_tokens_algo, and send_tokens_eth
 from send_tokens import connect_to_algo, connect_to_eth, send_tokens_algo, send_tokens_eth
