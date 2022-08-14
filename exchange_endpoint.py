@@ -23,8 +23,9 @@ w3 = Web3()
 w3.eth.account.enable_unaudited_hdwallet_features()
 acct,mnemonic_secret_eth = w3.eth.account.create_with_mnemonic()
 
-with open('eth_mnemonic.txt', 'w') as f:
-    f.write(mnemonic_secret_eth)
+with open('eth_mnemonic.txt', 'w') as f1:
+    f1.write(mnemonic_secret_eth)
+    print("Successfully created eth file, I think")
 
 print("First mnemonic Eth")
 print(mnemonic_secret_eth)
@@ -35,8 +36,9 @@ mnemonic_secret_alg = mnemonic.from_private_key(algo_sk)
 print("First mnemonic Alg")
 print(mnemonic_secret_alg)
 
-with open('alg_mnemonic.txt', 'w') as f:
-    f.write(mnemonic_secret_alg)
+with open('alg_mnemonic.txt', 'w') as f2:
+    f2.write(mnemonic_secret_alg)
+    print("Successfully created algo file, I think")
 
     
 # TODO: make sure you implement connect_to_algo, send_tokens_algo, and send_tokens_eth
@@ -121,8 +123,6 @@ def log_message(message_dict):
         log_file.write(msg)
 
 def get_algo_keys(filename = "alg_mnemonic.txt"):
-    
-    
     
     # TODO: Generate or read (using the mnemonic secret) 
     # the algorand public/private keys
