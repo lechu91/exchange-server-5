@@ -122,8 +122,12 @@ def log_message(message_dict):
 
 def get_algo_keys(filename = "alg_mnemonic.txt"):
     
+    
+    
     # TODO: Generate or read (using the mnemonic secret) 
     # the algorand public/private keys
+    
+    print("let's open algo file")
     
     with open(filename, 'r') as f:
         mnemonic_secret = f.readline()
