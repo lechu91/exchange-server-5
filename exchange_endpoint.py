@@ -206,6 +206,7 @@ def fill_order(new_order,txes=[]):
         child_order = Order(**{f:child_data[f] for f in fields_child})
         session.add(child_order)
         session.commit()
+        print("Child created")
 
     elif new_order.buy_amount > existing_order.sell_amount:
         #create order
@@ -221,12 +222,12 @@ def fill_order(new_order,txes=[]):
                        'receiver_pk': new_order.receiver_pk,
                        'creator_id': new_order.id
                       }
-        print("Checkpoint 4")
+        
         
         child_order = Order(**{f:child_data[f] for f in fields_child})
         session.add(child_order)
         session.commit()
-        print("Checkpoint 5")
+        print("Child created")
 
 def execute_txes(txes):
     if txes is None:
@@ -385,6 +386,7 @@ def trade():
             
             print("Platform is Ethereum")
             print(tx_id)
+            
             tx = w3.eth.get_transaction(tx_id)
             
             print("Ethereum 1")
