@@ -150,12 +150,8 @@ def fill_order(new_order,txes=[]):
     # Validate the order has a payment to back it (make sure the counterparty also made a payment)
     # Make sure that you end up executing all resulting transactions!
 
-    print("Checkpoint 1")
-    
     #Check if there are any existing orders that match the new order
     orders = session.query(Order).filter(Order.filled == None).all()
-    
-    print("Checkpoint 2")
     
     for existing_order in orders:
         
@@ -403,7 +399,6 @@ def trade():
 
 @app.route('/order_book')
 def order_book():
-    fields = [ "buy_currency", "sell_currency", "buy_amount", "sell_amount", "signature", "tx_id", "receiver_pk", "sender_pk" ]
     
     # Same as before
     a_list = []
