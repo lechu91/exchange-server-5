@@ -91,7 +91,8 @@ def log_message(message_dict):
 
     # TODO: Add message to the Log table
     
-    return
+    with open('server_log.txt', 'a') as log_file:
+        log_file.write(msg)
 
 def get_algo_keys():
     
@@ -109,14 +110,70 @@ def get_eth_keys(filename = "eth_mnemonic.txt"):
 
     return eth_sk, eth_pk
   
-def fill_order(order, txes=[]):
+def fill_order(new_order,txes=[]):
     # TODO: 
     # Match orders (same as Exchange Server II)
     # Validate the order has a payment to back it (make sure the counterparty also made a payment)
     # Make sure that you end up executing all resulting transactions!
+
+    #Check if there are any existing orders that match the new order
+    orders = session.query(Order).filter(Order.filled == None).all()
     
-    pass
-  
+    for existing_order in orders:
+        
+        # Check if currencies match
+        if existing_order.buy_currency == new_order.sell_currency and existing_order.sell_currency == new_order.buy_currency:
+
+            # Check if exchange rates match
+            if existing_order.sell_amount * new_order.sell_amount >= new_order.buy_amount * existing_order.buy_amount:
+                
+                #If a match is found between order and existing_order do the trade
+                existing_order.filled = datetime.now()
+                new_order.filled = datetime.now()
+                existing_order.counterparty_id = new_order.id
+                new_order.counterparty_id = existing_order.id
+                session.commit()
+                break
+                    
+    if existing_order.buy_amount > new_order.sell_amount:
+
+        buy_amount = existing_order.buy_amount - new_order.sell_amount
+        sell_amount = existing_order.sell_amount / existing_order.buy_amount * buy_amount
+
+        child_data = {'buy_currency': existing_order.buy_currency,
+                       'sell_currency': existing_order.sell_currency,
+                       'buy_amount': buy_amount,
+                       'sell_amount': sell_amount,
+                       'sender_pk': existing_order.sender_pk,
+                       'receiver_pk': existing_order.receiver_pk,
+                       'creator_id': existing_order.id
+                      }
+        
+        child_order = Order(**{f:child_data[f] for f in fields_child})
+        session.add(child_order)
+        session.commit()
+
+    elif new_order.buy_amount > existing_order.sell_amount:
+        #create order
+
+        buy_amount = new_order.buy_amount - existing_order.sell_amount
+        sell_amount = new_order.sell_amount / new_order.buy_amount * buy_amount
+
+        child_data = {'buy_currency': new_order.buy_currency,
+                       'sell_currency': new_order.sell_currency,
+                       'buy_amount': buy_amount,
+                       'sell_amount': sell_amount,
+                       'sender_pk': new_order.sender_pk,
+                       'receiver_pk': new_order.receiver_pk,
+                       'creator_id': new_order.id
+                      }
+        
+        child_order = Order(**{f:child_data[f] for f in fields_child})
+        session.add(child_order)
+        session.commit()
+
+
+
 def execute_txes(txes):
     if txes is None:
         return True
@@ -161,6 +218,32 @@ def address():
             #Your code here
             return jsonify( algo_pk )
 
+def check_sig(payload,sig):
+    
+    print("Check if signature is valid")
+    
+    payload_text = json.dumps(payload)
+    pk = payload.get("sender_pk")
+    
+    if payload['platform'] == 'Ethereum':
+
+        # Check Ethereum
+        eth_encoded_msg = eth_account.messages.encode_defunct(text=payload_text)
+
+        if eth_account.Account.recover_message(eth_encoded_msg, signature=sig) == pk:
+            return True
+        else:
+            log_message(payload_text)
+            return False
+    else:
+        # Check Algorand
+        if algosdk.util.verify_bytes(payload_text.encode('utf-8'),sig,pk):
+            return True                   
+        else:
+            log_message(payload_text)
+            return False
+        
+        
 @app.route('/trade', methods=['POST'])
 def trade():
     print( "In trade", file=sys.stderr )
@@ -191,6 +274,8 @@ def trade():
         # Your code here
         
         # 1. Check the signature
+        
+        
         
         # 2. Add the order to the table
         
