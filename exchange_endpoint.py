@@ -376,9 +376,6 @@ def trade():
             
             print("Ethereum 1")
             print(tx)
-            
-            print("Ethereum 2")
-            
             print(tx['from'])
             print(tx['to'])
             print(tx['hash'])
@@ -388,7 +385,15 @@ def trade():
         else:
             print("Platform is Algorand")
             
-#             payload.get("tx_id")
+            algod_indexer = connect_to_algo()
+            
+            tx = algod_indexer.search_transactions(txid=tx_id)
+            print("Algorand 1")
+            print(tx)
+            print(tx['from'])
+            print(tx['to'])
+            print(tx['hash'])
+            print(tx['value'])
 
         # 3b. Fill the order (as in Exchange Server II) if the order is valid
         
