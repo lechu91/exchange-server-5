@@ -274,7 +274,7 @@ def address():
             print("This is Algorand")
             #Your code here
             
-            algo_sk, algo_pk = get_alg_keys()
+            algo_sk, algo_pk = get_algo_keys()
             
             print("What did we get?")
             print(algo_sk)
