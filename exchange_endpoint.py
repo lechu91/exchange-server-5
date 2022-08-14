@@ -131,6 +131,11 @@ def get_algo_keys(filename = "alg_mnemonic.txt"):
         
     algo_sk = mnemonic.to_private_key(mnemonic_secret)
     algo_pk = mnemonic.to_public_key(mnemonic_secret)
+    
+    print("algo_sk")
+    print(algo_sk)
+    print("algo_pk")
+    print(algo_pk)
  
     return algo_sk, algo_pk
 
