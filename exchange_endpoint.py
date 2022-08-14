@@ -25,6 +25,8 @@ acct,mnemonic_secret_eth = w3.eth.account.create_with_mnemonic()
 
 with open('eth_mnemonic.txt', 'w') as f1:
     f1.write(mnemonic_secret_eth)
+print("ETH Mnemonic:")
+print(mnemonic_secret_eth)
     
 algo_sk, algo_pk = account.generate_account()
 
@@ -32,6 +34,9 @@ mnemonic_secret_alg = mnemonic.from_private_key(algo_sk)
 
 with open('alg_mnemonic.txt', 'w') as f2:
     f2.write(mnemonic_secret_alg)
+
+print("ALG Mnemonic:")
+print(mnemonic_secret_alg)
 
 # TODO: make sure you implement connect_to_algo, send_tokens_algo, and send_tokens_eth
 from send_tokens import connect_to_algo, connect_to_eth, send_tokens_algo, send_tokens_eth
