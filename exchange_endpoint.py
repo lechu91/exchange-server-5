@@ -304,6 +304,7 @@ def check_sig(payload,sig):
         
 @app.route('/trade', methods=['POST'])
 def trade():
+    print("New trade")
     print( "In trade", file=sys.stderr )
     connect_to_blockchains()
     get_keys()
@@ -336,7 +337,7 @@ def trade():
         print("Check the signature")
         
         if not check_sig(payload,sig):
-            return jsonify(False)
+            return jsonify( False )
         
         # 2. Add the order to the table
         
