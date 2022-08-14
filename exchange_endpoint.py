@@ -314,13 +314,32 @@ def trade():
         
         # 1. Check the signature
         
-        
+        if not check_sig(payload,sig):
+            return jsonify(False)
         
         # 2. Add the order to the table
+        
+        # Create order
+
+        order_data = {'sender_pk': payload.get("sender_pk"),
+                      'receiver_pk': payload.get("receiver_pk"),
+                      'buy_currency': payload.get("buy_currency"),
+                      'sell_currency': payload.get("sell_currency"),
+                      'buy_amount': payload.get("buy_amount"),
+                      'sell_amount': payload.get("sell_amount"),
+                      'signature': sig}
+
+        new_order_fields = ['sender_pk','receiver_pk','buy_currency','sell_currency','buy_amount','sell_amount','signature']
+        new_order = Order(**{f:order_data[f] for f in new_order_fields})
+
+        g.session.add(new_order)
+        g.session.commit()
         
         # 3a. Check if the order is backed by a transaction equal to the sell_amount (this is new)
 
         # 3b. Fill the order (as in Exchange Server II) if the order is valid
+        
+        fill_order(new_order)
         
         # 4. Execute the transactions
         
