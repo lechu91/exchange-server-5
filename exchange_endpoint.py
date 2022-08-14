@@ -246,6 +246,9 @@ def execute_txes(txes):
   
 @app.route('/address', methods=['POST'])
 def address():
+    
+    print("Run Address call")
+    
     if request.method == "POST":
         content = request.get_json(silent=True)
         if 'platform' not in content.keys():
@@ -256,14 +259,15 @@ def address():
             return jsonify( f"Error: invalid platform provided: {content['platform']}"  )
         
         if content['platform'] == "Ethereum":
-            
+            print("This is Ethereum")
             #Your code here
             
             eth_sk, eth_pk = get_eth_keys()
             
             return jsonify( eth_pk )
+        
         if content['platform'] == "Algorand":
-            
+            print("This is Algorand")
             #Your code here
             
             algo_sk, algo_pk = get_alg_keys()
