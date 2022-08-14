@@ -306,8 +306,11 @@ def check_sig(payload,sig):
 def trade():
     print("New trade")
     print( "In trade", file=sys.stderr )
+    print("Checkpoint1")
     connect_to_blockchains()
+    print("Checkpoint2")
     get_keys()
+    print("Checkpoint3")
     if request.method == "POST":
         content = request.get_json(silent=True)
         columns = [ "buy_currency", "sell_currency", "buy_amount", "sell_amount", "platform", "tx_id", "receiver_pk"]
