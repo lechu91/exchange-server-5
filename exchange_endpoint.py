@@ -45,6 +45,7 @@ from models import Base, Order, TX
 engine = create_engine('sqlite:///orders.db')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
+session = DBSession()
 
 app = Flask(__name__)
 
@@ -384,14 +385,16 @@ def trade():
             print("Platform is Ethereum")
             tx = w3.eth.get_transaction(payload.get("tx_id"))
             
+            print("Ethereum 1")
+            print(tx)
+            
+            print("Ethereum 2")
+            
             print(tx['from'])
             print(tx['to'])
             print(tx['hash'])
             print(tx['value'])
-            
-            eth_sk, eth_pk = get_eth_keys()
-            print(eth_sk)
-            print(eth_pk)
+
         
         else:
             print("Platform is Algorand")
