@@ -13,4 +13,3 @@ eth_sk = acct._private_key
 print(mnemonic_secret)
 
 algo_sk, algo_pk = generate_account()
-
