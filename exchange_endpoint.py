@@ -359,9 +359,10 @@ def trade():
                       'sell_currency': payload.get("sell_currency"),
                       'buy_amount': payload.get("buy_amount"),
                       'sell_amount': payload.get("sell_amount"),
+                      'tx_id': payload.get("tx_id"),
                       'signature': sig}
 
-        new_order_fields = ['sender_pk','receiver_pk','buy_currency','sell_currency','buy_amount','sell_amount','signature']
+        new_order_fields = ['sender_pk','receiver_pk','buy_currency','sell_currency','buy_amount','sell_amount','signature','tx_id']
         new_order = Order(**{f:order_data[f] for f in new_order_fields})
 
         g.session.add(new_order)
@@ -412,6 +413,7 @@ def order_book():
                   'sell_currency':row.sell_currency,
                   'buy_amount':row.buy_amount,
                   'sell_amount':row.sell_amount,
+                  'tx_id':row.tx_id,
                   'signature': row.signature}
         
         a_list.append(a_dict)
