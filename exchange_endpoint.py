@@ -309,7 +309,7 @@ def trade():
     print("Checkpoint1")
     connect_to_blockchains()
     print("Checkpoint2")
-    get_keys()
+#     get_keys()
     print("Checkpoint3")
     if request.method == "POST":
         content = request.get_json(silent=True)
