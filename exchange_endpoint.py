@@ -107,6 +107,13 @@ def get_eth_keys(filename = "eth_mnemonic.txt"):
     
     # TODO: Generate or read (using the mnemonic secret) 
     # the ethereum public/private keys
+    
+    w3.eth.account.enable_unaudited_hdwallet_features()
+    acct,mnemonic_secret = w3.eth.account.create_with_mnemonic()
+    
+    acct = w3.eth.account.from_mnemonic(mnemonic_secret)
+    eth_pk = acct._address
+    eth_sk = acct._private_key
 
     return eth_sk, eth_pk
   
@@ -213,6 +220,10 @@ def address():
         
         if content['platform'] == "Ethereum":
             #Your code here
+            
+            
+            
+            
             return jsonify( eth_pk )
         if content['platform'] == "Algorand":
             #Your code here
