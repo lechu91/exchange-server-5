@@ -16,29 +16,23 @@ from algosdk import mnemonic
 from algosdk import account
 from web3 import Web3
 
-# Generate private keys
 
+# Initialize variables
+w3 = Web3()
+w3.eth.account.enable_unaudited_hdwallet_features()
 fields_basic = ['sender_pk','receiver_pk','buy_currency','sell_currency','buy_amount','sell_amount','tx_id']
 fields_child = ['sender_pk','receiver_pk','buy_currency','sell_currency','buy_amount','sell_amount','creator_id','tx_id']
 
+# Generate Mnemonics
 
-w3 = Web3()
-
-w3.eth.account.enable_unaudited_hdwallet_features()
+# Ethereum
 # acct,mnemonic_secret_eth = w3.eth.account.create_with_mnemonic()
-
-# with open('eth_mnemonic.txt', 'w') as f1:
-#     f1.write(mnemonic_secret_eth)
 # print("ETH Mnemonic:")
 # print(mnemonic_secret_eth)
-    
+
+# Algorand
 # algo_sk, algo_pk = account.generate_account()
-
 # mnemonic_secret_alg = mnemonic.from_private_key(algo_sk)
-
-# with open('alg_mnemonic.txt', 'w') as f2:
-#     f2.write(mnemonic_secret_alg)
-
 # print("ALG Mnemonic:")
 # print(mnemonic_secret_alg)
 
@@ -128,30 +122,19 @@ def get_algo_keys(filename = "alg_mnemonic.txt"):
     
     # TODO: Generate or read (using the mnemonic secret) 
     # the algorand public/private keys
-    
-#     with open(filename, 'r') as f:
-#         mnemonic_secret = f.readline()
         
     mnemonic_secret = "judge machine copper sick invest rule skate pioneer glue effort deny correct negative shop soccer join six merry knee parent maid gasp enhance abstract senior"
         
     algo_sk = mnemonic.to_private_key(mnemonic_secret)
     algo_pk = mnemonic.to_public_key(mnemonic_secret)
-    
-#     print("algo_sk")
-#     print(algo_sk)
-#     print("algo_pk")
-#     print(algo_pk)
  
     return algo_sk, algo_pk
 
 
 def get_eth_keys(filename = "eth_mnemonic.txt"):
-#     w3 = Web3()
+
     # TODO: Generate or read (using the mnemonic secret) 
     # the ethereum public/private keys
-    
-#     with open(filename, 'r') as f:
-#         mnemonic_secret = f.readline()
     
     mnemonic_secret = "early alarm fatigue budget year fetch doll deal early goose scare bicycle"
     
