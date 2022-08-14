@@ -25,22 +25,14 @@ acct,mnemonic_secret_eth = w3.eth.account.create_with_mnemonic()
 
 with open('eth_mnemonic.txt', 'w') as f1:
     f1.write(mnemonic_secret_eth)
-    print("Successfully created eth file, I think")
-
-print("First mnemonic Eth")
-print(mnemonic_secret_eth)
     
 algo_sk, algo_pk = account.generate_account()
 
 mnemonic_secret_alg = mnemonic.from_private_key(algo_sk)
-print("First mnemonic Alg")
-print(mnemonic_secret_alg)
 
 with open('alg_mnemonic.txt', 'w') as f2:
     f2.write(mnemonic_secret_alg)
-    print("Successfully created algo file, I think")
 
-    
 # TODO: make sure you implement connect_to_algo, send_tokens_algo, and send_tokens_eth
 from send_tokens import connect_to_algo, connect_to_eth, send_tokens_algo, send_tokens_eth
 
@@ -127,17 +119,11 @@ def get_algo_keys(filename = "alg_mnemonic.txt"):
     # TODO: Generate or read (using the mnemonic secret) 
     # the algorand public/private keys
     
-    print("let's open algo file")
-    
     with open(filename, 'r') as f:
         mnemonic_secret = f.readline()
         
-    print("Hello algo")
-    print(mnemonic_secret)
-    
     algo_sk = mnemonic.to_private_key(mnemonic_secret)
     algo_pk = mnemonic.to_public_key(mnemonic_secret)
-
  
     return algo_sk, algo_pk
 
@@ -150,9 +136,6 @@ def get_eth_keys(filename = "eth_mnemonic.txt"):
     
     with open(filename, 'r') as f:
         mnemonic_secret = f.readline()
-    
-    print("Hello Eth")
-    print(mnemonic_secret)
     
     acct = w3.eth.account.from_mnemonic(mnemonic_secret)
     eth_pk = acct._address
@@ -335,10 +318,14 @@ def trade():
         
         # 1. Check the signature
         
+        print("Check the signature")
+        
         if not check_sig(payload,sig):
             return jsonify(False)
         
         # 2. Add the order to the table
+        
+        print("Add order to table")
         
         # Create order
 
