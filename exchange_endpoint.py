@@ -337,6 +337,7 @@ def trade():
 
         payload = content.get("payload")
         sig = content['sig']
+        platform = content.get("platform")
         
         # 1. Check the signature
         
@@ -369,9 +370,9 @@ def trade():
         # 3a. Check if the order is backed by a transaction equal to the sell_amount (this is new)
         
         print("Check tx")
-        if new_order['sell_currency'] == "Ethereum":
+        if platform == "Ethereum":
             
-            
+            print("Platform is Ethereum")
             tx = w3.eth.get_transaction(payload.get("tx_id"))
             
             print(tx['from'])
@@ -383,8 +384,8 @@ def trade():
             print(eth_sk)
             print(eth_pk)
         
-        if new_order['sell_currency'] == "Algorand":
-            print("This is Algooooooooooooooorand")
+        if platform == "Algorand":
+            print("Platform is Algorand")
             
 #             payload.get("tx_id")
 
