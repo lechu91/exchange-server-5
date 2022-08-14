@@ -162,8 +162,12 @@ def fill_order(new_order,txes=[]):
     # Validate the order has a payment to back it (make sure the counterparty also made a payment)
     # Make sure that you end up executing all resulting transactions!
 
+    print("Checkpoint 1")
+    
     #Check if there are any existing orders that match the new order
     orders = session.query(Order).filter(Order.filled == None).all()
+    
+    print("Checkpoint 2")
     
     for existing_order in orders:
         
@@ -180,7 +184,9 @@ def fill_order(new_order,txes=[]):
                 new_order.counterparty_id = existing_order.id
                 session.commit()
                 break
-                    
+    
+    print("Checkpoint 3")
+    
     if existing_order.buy_amount > new_order.sell_amount:
 
         buy_amount = existing_order.buy_amount - new_order.sell_amount
@@ -192,7 +198,8 @@ def fill_order(new_order,txes=[]):
                        'sell_amount': sell_amount,
                        'sender_pk': existing_order.sender_pk,
                        'receiver_pk': existing_order.receiver_pk,
-                       'creator_id': existing_order.id
+                       'creator_id': existing_order.id,
+                       'tx_id': existing_order.tx_id
                       }
         
         child_order = Order(**{f:child_data[f] for f in fields_child})
@@ -213,10 +220,12 @@ def fill_order(new_order,txes=[]):
                        'receiver_pk': new_order.receiver_pk,
                        'creator_id': new_order.id
                       }
+        print("Checkpoint 4")
         
         child_order = Order(**{f:child_data[f] for f in fields_child})
         session.add(child_order)
         session.commit()
+        print("Checkpoint 5")
 
 def execute_txes(txes):
     if txes is None:
@@ -391,6 +400,7 @@ def trade():
 
         # 3b. Fill the order (as in Exchange Server II) if the order is valid
         
+        print("Fill order")
         fill_order(new_order)
         
         # 4. Execute the transactions
