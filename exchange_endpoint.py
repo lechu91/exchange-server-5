@@ -15,8 +15,8 @@ import traceback
 from algosdk import mnemonic
 from algosdk import account
 from web3 import Web3
-
 w3 = Web3()
+
 w3.eth.account.enable_unaudited_hdwallet_features()
 acct,mnemonic_secret_eth = w3.eth.account.create_with_mnemonic()
 
