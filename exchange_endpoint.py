@@ -385,7 +385,7 @@ def trade():
         else:
             print("Platform is Algorand")
             
-            algod_indexer = connect_to_algo(indexer)
+            algod_indexer = connect_to_algo(connection_type="indexer")
             
             tx = algod_indexer.search_transactions(txid=tx_id)
             print("Algorand 1")
