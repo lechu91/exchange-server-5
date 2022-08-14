@@ -349,6 +349,14 @@ def trade():
         g.session.commit()
         
         # 3a. Check if the order is backed by a transaction equal to the sell_amount (this is new)
+        
+        if new_order['sell_currency'] = "Ethereum":
+            tx = w3.eth.get_transaction(payload.get("tx_id"))
+            
+            print(tx['to'])
+            print(get_eth_keys())
+            
+#             payload.get("tx_id")
 
         # 3b. Fill the order (as in Exchange Server II) if the order is valid
         
