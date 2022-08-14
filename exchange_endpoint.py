@@ -369,7 +369,7 @@ def trade():
             tx = w3.eth.get_transaction(payload.get("tx_id"))
             
             print(tx['to'])
-            print(get_eth_keys())
+            print(get_eth_keys()[1])
             
 #             payload.get("tx_id")
 
