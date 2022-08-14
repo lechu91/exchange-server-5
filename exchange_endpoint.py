@@ -272,6 +272,10 @@ def address():
             
             algo_sk, algo_pk = get_alg_keys()
             
+            print("What did we get?")
+            print(algo_sk)
+            print(algo_pk)
+            
             return jsonify( algo_pk )
 
 def check_sig(payload,sig):
