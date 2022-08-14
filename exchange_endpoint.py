@@ -18,7 +18,8 @@ from web3 import Web3
 
 
 # Initialize variables
-w3 = Web3()
+w3 = connect_to_eth()
+#Web3()
 w3.eth.account.enable_unaudited_hdwallet_features()
 
 fields_child = ['sender_pk','receiver_pk','buy_currency','sell_currency','buy_amount','sell_amount','creator_id','tx_id']
