@@ -191,6 +191,8 @@ def fill_order(new_order,txes=[]):
                 break
     
     print("Checkpoint 3")
+    print(existing_order.buy_amount)
+    print(new_order.sell_amount)
     
     if existing_order.buy_amount > new_order.sell_amount:
         print("Checkpoint 3.1.1")
