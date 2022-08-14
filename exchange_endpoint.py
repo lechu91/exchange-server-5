@@ -189,9 +189,12 @@ def fill_order(new_order,txes=[]):
     print("Checkpoint 3")
     
     if existing_order.buy_amount > new_order.sell_amount:
+        print("Checkpoint 3.1.1")
 
         buy_amount = existing_order.buy_amount - new_order.sell_amount
+        print("Checkpoint 3.1.2")
         sell_amount = existing_order.sell_amount / existing_order.buy_amount * buy_amount
+        print("Checkpoint 3.1.3")
 
         child_data = {'buy_currency': existing_order.buy_currency,
                        'sell_currency': existing_order.sell_currency,
@@ -203,17 +206,22 @@ def fill_order(new_order,txes=[]):
                        'tx_id': existing_order.tx_id
                       }
         
+        print("Checkpoint 3.1.4")
         child_order = Order(**{f:child_data[f] for f in fields_child})
+        print("Checkpoint 3.1.5")
         session.add(child_order)
         session.commit()
         print("Child created")
 
     elif new_order.buy_amount > existing_order.sell_amount:
+        print("Checkpoint 3.2.1")
         #create order
 
         buy_amount = new_order.buy_amount - existing_order.sell_amount
+        print("Checkpoint 3.2.2")
         sell_amount = new_order.sell_amount / new_order.buy_amount * buy_amount
-
+        print("Checkpoint 3.2.3")
+        
         child_data = {'buy_currency': new_order.buy_currency,
                        'sell_currency': new_order.sell_currency,
                        'buy_amount': buy_amount,
@@ -223,9 +231,10 @@ def fill_order(new_order,txes=[]):
                        'creator_id': new_order.id,
                        'tx_id': existing_order.tx_id
                       }
-        
+        print("Checkpoint 3.2.4")
         
         child_order = Order(**{f:child_data[f] for f in fields_child})
+        print("Checkpoint 3.2.5")
         session.add(child_order)
         session.commit()
         print("Child created")
