@@ -247,8 +247,6 @@ def execute_txes(txes):
 @app.route('/address', methods=['POST'])
 def address():
     
-    print("Run Address call")
-    
     if request.method == "POST":
         content = request.get_json(silent=True)
         if 'platform' not in content.keys():
@@ -273,6 +271,9 @@ def address():
             algo_sk, algo_pk = get_algo_keys()
 
             return jsonify( algo_pk )
+        
+        else:
+            retun jsonify( false )
 
 def check_sig(payload,sig):
     
