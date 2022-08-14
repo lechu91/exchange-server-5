@@ -335,7 +335,7 @@ def trade():
 
         payload = content.get("payload")
         sig = content['sig']
-        platform = content.get("platform")
+        platform = payload.get("platform")
         
         # 1. Check the signature
         
