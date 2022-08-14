@@ -12,6 +12,8 @@ from datetime import datetime
 import math
 import sys
 import traceback
+from algosdk import mnemonic
+
 
 # TODO: make sure you implement connect_to_algo, send_tokens_algo, and send_tokens_eth
 from send_tokens import connect_to_algo, connect_to_eth, send_tokens_algo, send_tokens_eth
@@ -98,7 +100,7 @@ def get_algo_keys():
     
     # TODO: Generate or read (using the mnemonic secret) 
     # the algorand public/private keys
-    
+ 
     return algo_sk, algo_pk
 
 
@@ -108,12 +110,9 @@ def get_eth_keys(filename = "eth_mnemonic.txt"):
     # TODO: Generate or read (using the mnemonic secret) 
     # the ethereum public/private keys
     
-    w3.eth.account.enable_unaudited_hdwallet_features()
-    acct,mnemonic_secret = w3.eth.account.create_with_mnemonic()
-    
-    acct = w3.eth.account.from_mnemonic(mnemonic_secret)
-    eth_pk = acct._address
-    eth_sk = acct._private_key
+#     acct = w3.eth.account.from_mnemonic(mnemonic_secret)
+#     eth_pk = acct._address
+#     eth_sk = acct._private_key
 
     return eth_sk, eth_pk
   
