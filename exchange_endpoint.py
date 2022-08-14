@@ -301,6 +301,7 @@ def trade():
     print("New trade")
     print( "In trade", file=sys.stderr )
     connect_to_blockchains()
+    connect_to_eth()
 #     get_keys()
     if request.method == "POST":
         content = request.get_json(silent=True)
