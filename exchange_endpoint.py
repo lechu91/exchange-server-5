@@ -18,8 +18,7 @@ from web3 import Web3
 
 
 # Initialize variables
-w3 = connect_to_eth()
-#Web3()
+w3 = Web3()
 w3.eth.account.enable_unaudited_hdwallet_features()
 
 fields_child = ['sender_pk','receiver_pk','buy_currency','sell_currency','buy_amount','sell_amount','creator_id','tx_id']
@@ -40,6 +39,8 @@ new_order_fields = ['sender_pk','receiver_pk','buy_currency','sell_currency','bu
 
 # TODO: make sure you implement connect_to_algo, send_tokens_algo, and send_tokens_eth
 from send_tokens import connect_to_algo, connect_to_eth, send_tokens_algo, send_tokens_eth
+
+w3 = connect_to_eth()
 
 from models import Base, Order, TX
 engine = create_engine('sqlite:///orders.db')
