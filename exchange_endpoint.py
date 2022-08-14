@@ -327,7 +327,7 @@ def trade():
         # Your code here
 
         payload = content.get("payload")
-        sig = content['sig']
+        sig = content.get('sig')
         platform = payload.get("platform")
         tx_id = payload.get("tx_id")
         
