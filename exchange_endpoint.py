@@ -16,6 +16,9 @@ from algosdk import mnemonic
 from algosdk import account
 from web3 import Web3
 
+# TODO: make sure you implement connect_to_algo, send_tokens_algo, and send_tokens_eth
+from send_tokens import connect_to_algo, connect_to_eth, send_tokens_algo, send_tokens_eth
+from models import Base, Order, TX
 
 # Initialize variables
 w3 = Web3()
@@ -37,17 +40,13 @@ new_order_fields = ['sender_pk','receiver_pk','buy_currency','sell_currency','bu
 # print("ALG Mnemonic:")
 # print(mnemonic_secret_alg)
 
-# TODO: make sure you implement connect_to_algo, send_tokens_algo, and send_tokens_eth
-from send_tokens import connect_to_algo, connect_to_eth, send_tokens_algo, send_tokens_eth
 
 w3 = connect_to_eth()
 
-from models import Base, Order, TX
 engine = create_engine('sqlite:///orders.db')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
-
 app = Flask(__name__)
 
 """ Pre-defined methods (do not need to change) """
