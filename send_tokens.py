@@ -56,7 +56,7 @@ def send_tokens_algo( acl, sender_sk, txes):
         print("Amount")
         print(amount)
         
-        unsigned_tx = transaction.PaymentTxn(sender_pk,params,receiver_pk,amount )
+        unsigned_tx = transaction.PaymentTxn(sender_pk,params,receiver_pk, int(amount))
         print("Unsigned tx created")
         
 
