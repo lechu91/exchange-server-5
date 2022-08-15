@@ -167,58 +167,58 @@ def fill_order(new_order,txes=[]):
                 existing_order.counterparty_id = new_order.id
                 new_order.counterparty_id = existing_order.id
                 session.commit()
-                break
-    
-    if existing_order.buy_amount > new_order.sell_amount:
+                    
+                if existing_order.buy_amount > new_order.sell_amount:
 
-        buy_amount = existing_order.buy_amount - new_order.sell_amount
-        sell_amount = existing_order.sell_amount / existing_order.buy_amount * buy_amount
+                    buy_amount = existing_order.buy_amount - new_order.sell_amount
+                    sell_amount = existing_order.sell_amount / existing_order.buy_amount * buy_amount
 
-        child_data = {'buy_currency': existing_order.buy_currency,
-                       'sell_currency': existing_order.sell_currency,
-                       'buy_amount': buy_amount,
-                       'sell_amount': sell_amount,
-                       'sender_pk': existing_order.sender_pk,
-                       'receiver_pk': existing_order.receiver_pk,
-                       'creator_id': existing_order.id,
-                       'tx_id': existing_order.tx_id
-                      }
-        
-        child_order = Order(**{f:child_data[f] for f in fields_child})
-        session.add(child_order)
-        session.commit()
+                    child_data = {'buy_currency': existing_order.buy_currency,
+                                   'sell_currency': existing_order.sell_currency,
+                                   'buy_amount': buy_amount,
+                                   'sell_amount': sell_amount,
+                                   'sender_pk': existing_order.sender_pk,
+                                   'receiver_pk': existing_order.receiver_pk,
+                                   'creator_id': existing_order.id,
+                                   'tx_id': existing_order.tx_id
+                                  }
 
-    elif new_order.buy_amount > existing_order.sell_amount:
-        #create order
+                    child_order = Order(**{f:child_data[f] for f in fields_child})
+                    session.add(child_order)
+                    session.commit()
 
-        buy_amount = new_order.buy_amount - existing_order.sell_amount
-        sell_amount = new_order.sell_amount / new_order.buy_amount * buy_amount
-        
-        child_data = {'buy_currency': new_order.buy_currency,
-                       'sell_currency': new_order.sell_currency,
-                       'buy_amount': buy_amount,
-                       'sell_amount': sell_amount,
-                       'sender_pk': new_order.sender_pk,
-                       'receiver_pk': new_order.receiver_pk,
-                       'creator_id': new_order.id,
-                       'tx_id': existing_order.tx_id
-                      }
-        
-        child_order = Order(**{f:child_data[f] for f in fields_child})
-        session.add(child_order)
-        session.commit()
-        
-    else: 
-        buy_amount = new_order.buy_amount
-        sell_amount = new_order.sell_amount / new_order.buy_amount * buy_amount
-    
-    print("Currencies of orders created:")
-    txes.append({'order_id':existing_order.id, 'platform': existing_order.buy_currency, 'tx_amount': buy_amount, 'receiver_pk': existing_order.receiver_pk})
-    print(existing_order.buy_currency)
-    txes.append({'order_id':new_order.id, 'platform': new_order.buy_currency, 'tx_amount': sell_amount, 'receiver_pk': new_order.receiver_pk})
-    print(new_order.buy_currency)
-    
-    return txes
+                elif new_order.buy_amount > existing_order.sell_amount:
+                    #create order
+
+                    buy_amount = new_order.buy_amount - existing_order.sell_amount
+                    sell_amount = new_order.sell_amount / new_order.buy_amount * buy_amount
+
+                    child_data = {'buy_currency': new_order.buy_currency,
+                                   'sell_currency': new_order.sell_currency,
+                                   'buy_amount': buy_amount,
+                                   'sell_amount': sell_amount,
+                                   'sender_pk': new_order.sender_pk,
+                                   'receiver_pk': new_order.receiver_pk,
+                                   'creator_id': new_order.id,
+                                   'tx_id': existing_order.tx_id
+                                  }
+
+                    child_order = Order(**{f:child_data[f] for f in fields_child})
+                    session.add(child_order)
+                    session.commit()
+
+                else: 
+                    buy_amount = new_order.buy_amount
+                    sell_amount = new_order.sell_amount / new_order.buy_amount * buy_amount
+
+                print("Currencies of orders created:")
+                txes.append({'order_id':existing_order.id, 'platform': existing_order.buy_currency, 'tx_amount': buy_amount, 'receiver_pk': existing_order.receiver_pk})
+                print(existing_order.buy_currency)
+                txes.append({'order_id':new_order.id, 'platform': new_order.buy_currency, 'tx_amount': sell_amount, 'receiver_pk': new_order.receiver_pk})
+                print(new_order.buy_currency)
+
+                return txes
+        return []
     
 
 def execute_txes(txes):
