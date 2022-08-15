@@ -139,10 +139,8 @@ def send_tokens_eth(w3,sender_sk,txes):
     print(len(txes))
     for i,tx in enumerate(txes):
         
-        print(tx)
-        
         receiver_pk = tx['receiver_pk']
-        tx_amount = math.ceil(int(tx['tx_amount']))
+        tx_amount = tx['tx_amount']
 
         # Your code here
         tx_dict = {
