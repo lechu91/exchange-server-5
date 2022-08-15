@@ -248,9 +248,6 @@ def execute_txes(txes):
     algo_txes = [tx for tx in txes if tx['platform'] == "Algorand" ]
     eth_txes = [tx for tx in txes if tx['platform'] == "Ethereum" ]
     
-    print(len(algo_txes))
-    print(len(eth_txes))
-    
     # TODO: 
     #       1. Send tokens on the Algorand and eth testnets, appropriately
     #          We've provided the send_tokens_algo and send_tokens_eth skeleton methods in send_tokens.py
@@ -258,6 +255,7 @@ def execute_txes(txes):
     
     tx_fields = ['platform','receiver_pk','order_id','tx_id']
     
+    print("Add Ethereum transactions:")
     eth_tx_ids = send_tokens_eth(w3, eth_sk, eth_txes)
     
     for i in range(len(eth_tx_ids)):
@@ -273,8 +271,7 @@ def execute_txes(txes):
         
         print("new_tx added")
     
-    print("Let's add Algorand transactions:")
-    print(len(algo_txes))
+    print("Add Algorand transactions:")
     acl = connect_to_algo()
     alg_tx_ids = send_tokens_algo(acl, algo_sk, algo_txes)   
     print("alg_tx_ids created")
