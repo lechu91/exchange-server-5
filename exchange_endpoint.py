@@ -192,7 +192,7 @@ def fill_order(new_order,txes=[]):
         session.commit()
         print("Child created")
 
-    elif new_order.buy_amount > existing_order.sell_amount:
+    elif new_order.buy_amount >= existing_order.sell_amount:
         #create order
 
         buy_amount = new_order.buy_amount - existing_order.sell_amount
@@ -212,6 +212,12 @@ def fill_order(new_order,txes=[]):
         session.add(child_order)
         session.commit()
         print("Child created")
+        
+    txes.append({'platform': existing_order.buy_currency, 'tx_amount': buy_amount, 'receiver_pk': existing_order.receiver_pk})
+    txes.append({'platform': new_order.buy_currency, 'tx_amount': sell_amount, 'receiver_pk': new_order.receiver_pk})
+    
+    return txes
+    
 
 def execute_txes(txes):
     if txes is None:
@@ -234,7 +240,10 @@ def execute_txes(txes):
     #       1. Send tokens on the Algorand and eth testnets, appropriately
     #          We've provided the send_tokens_algo and send_tokens_eth skeleton methods in send_tokens.py
     #       2. Add all transactions to the TX table
-
+    
+    send_tokens_eth(w3, eth_sk, eth_txes)
+    
+    
     pass
 
 """ End of Helper methods"""
@@ -380,6 +389,8 @@ def trade():
             if tx['to'] != eth_pk:
                 return jsonify(False)
             
+            
+            
 #             if tx['value'] != 
 
         
@@ -401,14 +412,19 @@ def trade():
         # 3b. Fill the order (as in Exchange Server II) if the order is valid
         
         print("Fill order")
-        fill_order(new_order)
+        eth_txes,  = fill_order(new_order)
         
         # 4. Execute the transactions
         
+        if execute_txes(txes):
+        
         # If all goes well, return jsonify(True). else return jsonify(False)
         print("Return jsonify true")
-        return jsonify(True)
+            return jsonify(True)
 
+        else:
+            return jsonify(False)
+        
 @app.route('/order_book')
 def order_book():
     
