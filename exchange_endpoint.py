@@ -266,8 +266,8 @@ def execute_txes(txes):
     print("CP0")
     acl = connect_to_algo()
     print("CP1")
-    alg_tx_ids = send_tokens_algo(acl, algo_sk, algo_txes)   
-    print("CP2")
+#     alg_tx_ids = send_tokens_algo(acl, algo_sk, algo_txes)   
+#     print("CP2")
     
 #     for i in range(len(alg_tx_ids)):
         
