@@ -258,20 +258,10 @@ def execute_txes(txes):
               'tx_id': eth_tx_ids[i]}
 
         tx_fields = ['id','platform','receiver_pk','order_id','order','tx_id']
-        tx = TX(**{f:tx_data[f] for f in tx_fields})
+        new_tx = TX(**{f:tx_data[f] for f in tx_fields})
 
-        g.session.add(new_order)
+        g.session.add(new_tx)
         g.session.commit()
-        
-        tx = {
-        
-        eth_txes
-        
-
-                   
-    
-    
-    
     
     return True
     
