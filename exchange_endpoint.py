@@ -403,11 +403,13 @@ def trade():
         
         # 3a. Check if the order is backed by a transaction equal to the sell_amount (this is new)
         
-        print(platform)
         if platform == "Ethereum":
 
             eth_sk, eth_pk = get_eth_keys()
             tx = w3.eth.get_transaction(tx_id)
+            
+            if tx is None:
+                return jsonify(False)
             
             tx_sender = tx['from']
             tx_receiver = tx['to']
@@ -417,6 +419,9 @@ def trade():
 
             algo_sk, algo_pk = get_algo_keys()
             algod_indexer = connect_to_algo(connection_type="indexer")
+            
+            if len(response['transactions']) == 0:
+                return jsonify(False)
             
             response = algod_indexer.search_transactions(txid=tx_id, address = algo_pk)
             tx_sender = response['transactions'][0]['sender']
