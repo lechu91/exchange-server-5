@@ -420,17 +420,21 @@ def trade():
             if tx['to'] != eth_pk:
                 print("Wrong eth_pk")
                 return jsonify(False)
+            
+            if tx['value'] != payload.get("sell_amount"):
+                print("Wrong sell_amount")
+                return jsonify(False)
         
             # Pending to add other Ethereum checks
         
         else:
 
             print("This is Algorand and we should confirm if the transaction was sent")
-#             return jsonify(False)
             
-#             algo_sk, algo_pk = get_algo_keys()
-#             print(algo_pk)
-#             algod_indexer = connect_to_algo(connection_type="indexer")
+            algo_sk, algo_pk = get_algo_keys()
+            print(algo_pk)
+            algod_indexer = connect_to_algo(connection_type="indexer")
+            
 #             print("Algorand - Checkpoint 1")
 #             print(algod_indexer)
 #             print("Algorand - Checkpoint 2")
@@ -439,6 +443,7 @@ def trade():
 #             print(json.dumps(response, indent = 2, sort_keys=True))
 #             print("Algorand - Checkpoint 3")
 #             print(tx)
+#             return jsonify(False)
             
 
 
