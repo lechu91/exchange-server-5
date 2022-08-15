@@ -443,6 +443,7 @@ def trade():
             print("CP8.2")
             
             response = algod_indexer.search_transactions(txid=tx_id, address = algo_pk)
+            print(response)
             
             if response is None:
                 return jsonify(False)
