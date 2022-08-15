@@ -368,18 +368,19 @@ def trade():
         print("Check tx")
         print(platform)
         if platform == "Ethereum":
-            
+
             print("Platform is Ethereum")
-            print(tx_id)
-            
+
+            eth_sk, eth_pk = get_eth_keys()
             tx = w3.eth.get_transaction(tx_id)
             
-            print("Ethereum 1")
-            print(tx)
-            print(tx['from'])
-            print(tx['to'])
-            print(tx['hash'])
-            print(tx['value'])
+            if tx['from'] != payload.get("sender_pk"):
+                return jsonify(False)
+            
+            if tx['to'] != eth_pk:
+                return jsonify(False)
+            
+#             if tx['value'] != 
 
         
         else:
