@@ -218,6 +218,9 @@ def fill_order(new_order,txes=[]):
                 print(new_order.buy_currency)
 
                 return txes
+            
+        print("No matching was found, but order was added")
+        
         return []
     
 
