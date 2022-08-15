@@ -385,6 +385,7 @@ def trade():
         else:
             print("Platform is Algorand")
             algo_sk, algo_pk = get_algo_keys()
+            print(aldo_pk)
             
             algod_indexer = connect_to_algo(connection_type="indexer")
             print("Algorand - Checkpoint 1")
@@ -395,7 +396,6 @@ def trade():
             print(json.dumps(response, indent = 2, sort_keys=True))
             print("Algorand - Checkpoint 3")
             print(tx)
-
 
         # 3b. Fill the order (as in Exchange Server II) if the order is valid
         
