@@ -148,7 +148,7 @@ def send_tokens_eth(w3,sender_sk,txes):
         receiver_pk = tx['receiver_pk']
         tx_amount = tx['tx_amount']
         
-         print("CP5")
+        print("CP5")
 
         # Your code here
         tx_dict = {
