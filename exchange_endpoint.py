@@ -398,56 +398,80 @@ def trade():
                       'tx_id': payload.get("tx_id"),
                       'signature': sig}
 
+        print("CP5")
+        
         new_order_fields = ['sender_pk','receiver_pk','buy_currency','sell_currency','buy_amount','sell_amount','tx_id','signature']
         new_order = Order(**{f:order_data[f] for f in new_order_fields})
 
         g.session.add(new_order)
         g.session.commit()
         
+        print("CP6")
+        
         # 3a. Check if the order is backed by a transaction equal to the sell_amount (this is new)
         
         if platform == "Ethereum":
-
+            
+            print("CP7.1")
             eth_sk, eth_pk = get_eth_keys()
             tx = w3.eth.get_transaction(tx_id)
             
+            print("CP7.2")
+            
             if tx is None:
                 return jsonify(False)
+            
+            print("CP7.3")
             
             tx_sender = tx['from']
             tx_receiver = tx['to']
             tx_value = tx['value']
             
+            print("CP7.4")
+            
             if tx_receiver != eth_pk:
                 print("Wrong eth_pk")
                 return jsonify(False)
 
+            print("CP7.5")
+            
         else:
+            
+            print("CP8.1")
 
             algo_sk, algo_pk = get_algo_keys()
             algod_indexer = connect_to_algo(connection_type="indexer")
+            print("CP8.2")
             
             if len(response['transactions']) == 0:
                 return jsonify(False)
+            print("CP8.3")
             
             response = algod_indexer.search_transactions(txid=tx_id, address = algo_pk)
             tx_sender = response['transactions'][0]['sender']
             tx_receiver = response['transactions'][0]['payment-transaction']['receiver']
             tx_value = response['transactions'][0]['payment-transaction']['amount']
             
+            print("CP8.4")
+            
             if tx_receiver != algo_pk:
                 print("Wrong algo_pk")
                 return jsonify(False)
             
+            print("CP8.5")
             
         if tx_sender != payload.get("sender_pk"):
             print("Wrong sender_pk")
             return jsonify(False)
 
+        print("CP9")
+        
         if tx_value != payload.get("sell_amount"):
             print("Wrong sell_amount")
             return jsonify(False)
 
+        print("CP10")
+        
         # 3b. Fill the order (as in Exchange Server II) if the order is valid
         
         txes = fill_order(new_order)
@@ -457,11 +481,15 @@ def trade():
         if txes == []:
             return jsonify(False)
         
+        print("CP11")
+        
         if execute_txes(txes) == True:
             # If all goes well, return jsonify(True). else return jsonify(False)
             return jsonify(True)
         else:
             return jsonify(False)
+        
+        print("CP12")
         
 @app.route('/order_book')
 def order_book():
