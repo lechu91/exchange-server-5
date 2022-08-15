@@ -22,7 +22,6 @@ def connect_to_algo(connection_type=''):
         # Tutorial Link: https://developer.algorand.org/tutorials/creating-python-transaction-purestake-api/
         algod_address = "https://testnet-algorand.api.purestake.io/ps2"
         purestake_token = {'X-Api-key': algod_token}
-#         mnemonic_phrase = "judge machine copper sick invest rule skate pioneer glue effort deny correct negative shop soccer join six merry knee parent maid gasp enhance abstract senior"
         
         return algod.AlgodClient(algod_token, algod_address, purestake_token)
 
@@ -55,7 +54,7 @@ def send_tokens_algo( acl, sender_sk, txes):
         signed_tx = unsigned_tx.sign(sender_sk)
         
         try:
-#             print(f"Sending {tx['tx_amount']} microalgo from {sender_pk} to {tx['receiver_pk']}" )
+            print(f"Sending {tx['tx_amount']} microalgo from {sender_pk} to {tx['receiver_pk']}" )
             # TODO: Send the transaction to the testnet
             
             acl.send_transaction(signed_tx)
@@ -63,7 +62,7 @@ def send_tokens_algo( acl, sender_sk, txes):
             tx_ids.append(tx_id)
             time.sleep(5)
             txinfo = wait_for_confirmation_algo(acl, txid=tx_id )
-#             print(f"Sent {tx['tx_amount']} microalgo in transaction: {tx_id}\n" )
+            print(f"Sent {tx['tx_amount']} microalgo in transaction: {tx_id}\n" )
             
         except Exception as e:
             print(e)
