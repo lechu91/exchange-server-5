@@ -47,18 +47,8 @@ def send_tokens_algo( acl, sender_sk, txes):
         receiver_pk = tx['receiver_pk']
         amount = tx['tx_amount']
         
-        print("Sender_pk")
-        print(sender_pk)        
-        print("Receiver_pk")
-        print(receiver_pk)
-        print("Params")
-        print(params)
-        print("Amount")
-        print(amount)
-        
         unsigned_tx = transaction.PaymentTxn(sender_pk,params,receiver_pk, int(amount))
         print("Unsigned tx created")
-        
 
         # TODO: Sign the transaction
         signed_tx = unsigned_tx.sign(sender_sk)
