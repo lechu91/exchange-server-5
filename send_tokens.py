@@ -55,7 +55,7 @@ def send_tokens_algo( acl, sender_sk, txes):
         
         try:
             print("CP1")
-            print(f"Sending {tx['amount']} microalgo from {sender_pk} to {tx['receiver_pk']}" )
+            print(f"Sending {tx['tx_amount']} microalgo from {sender_pk} to {tx['receiver_pk']}" )
             print("CP2")
             # TODO: Send the transaction to the testnet
             
