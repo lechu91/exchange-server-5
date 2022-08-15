@@ -389,7 +389,7 @@ def trade():
             print("Algorand 1")
             print(algod_indexer)
             print("Algorand 1.5")
-            tx = algod_indexer.search_transactions(txid=tx_id)
+            tx = algod_indexer.search_transactions(txid=tx_id, address = payload.get("sender_pk"))
             print("Algorand 2")
             print(tx)
 
