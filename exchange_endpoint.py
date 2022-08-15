@@ -406,8 +406,6 @@ def trade():
         g.session.commit()
         
         print("CP6")
-        print(payload.get('platform'))
-        print(payload.get('sell_currency'))
         
         # 3a. Check if the order is backed by a transaction equal to the sell_amount (this is new)
         
