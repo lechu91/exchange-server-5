@@ -67,7 +67,7 @@ def send_tokens_algo( acl, sender_sk, txes):
             tx_ids.append(tx_id)
             time.sleep(5)
             txinfo = wait_for_confirmation_algo(acl, txid=tx_id )
-            print(f"Sent {tx['amount']} microalgo in transaction: {tx_id}\n" )
+            print(f"Sent {tx['tx_amount']} microalgo in transaction: {tx_id}\n" )
             
             params.first += 1
             print("Done")
