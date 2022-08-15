@@ -416,7 +416,7 @@ def trade():
         
         # 4. Execute the transactions
         
-        if execute_txes(txes) = True:
+        if execute_txes(txes) == True:
             # If all goes well, return jsonify(True). else return jsonify(False)
             print("Return jsonify true")
             return jsonify(True)
