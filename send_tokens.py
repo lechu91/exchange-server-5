@@ -52,6 +52,7 @@ def send_tokens_algo( acl, sender_sk, txes):
             acl.send_transaction(signed_tx)
             
             tx_id = unsigned_tx.get_txid()
+            tx_ids.append(tx_id)
             time.sleep(5)
             txinfo = wait_for_confirmation_algo(acl, txid=tx_id )
             print(f"Sent {tx['amount']} microalgo in transaction: {tx_id}\n" )
