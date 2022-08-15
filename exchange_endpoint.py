@@ -246,7 +246,7 @@ def execute_txes(txes):
 #     order_id: the id of the order (in the Order table) that generated this transaction
 #     tx_id: the transaction id of the payment transaction (from the Exchange) on the platform specified by platform
         
-    tx_fields = ['id','platform','receiver_pk','order_id','order','tx_id']
+    tx_fields = ['platform','receiver_pk','order_id','tx_id']
     
     for i in range(len(eth_tx_ids)):
         
@@ -263,12 +263,18 @@ def execute_txes(txes):
                    'order_id': int(eth_txes[i]["order_id"]),
                    'tx_id': eth_tx_ids[i]}
         
+        print("tx_data created")
+        
         new_tx = TX(**{f:tx_data[f] for f in tx_fields})
+        
+        print("new_tx created")
         
         print(new_tx)
 
         g.session.add(new_tx)
         g.session.commit()
+        
+        print("new_tx added")
     
     return True
     
