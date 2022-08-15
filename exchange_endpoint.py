@@ -348,6 +348,7 @@ def trade():
     print( "In trade", file=sys.stderr )
     connect_to_blockchains()
     connect_to_eth()
+    print("CP1")
 #     get_keys()
     if request.method == "POST":
         content = request.get_json(silent=True)
@@ -372,18 +373,20 @@ def trade():
             return jsonify( False )
         
         # Your code here
-
+        
+        print("CP2")
+        
         payload = content.get("payload")
         sig = content.get('sig')
         platform = payload.get("platform")
         tx_id = payload.get("tx_id")
-        
+        print("CP3")
         # 1. Check the signature
         
         if not check_sig(payload,sig):
             print("Wrong signature")
             return jsonify( False )
-        
+        print("CP4")
         # 2. Add the order to the table
         
         order_data = {'sender_pk': payload.get("sender_pk"),
