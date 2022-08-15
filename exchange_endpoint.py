@@ -285,6 +285,8 @@ def execute_txes(txes):
         g.session.commit()
 
         print("new_tx algo added")
+        
+    txes = []
     
     return True
     
