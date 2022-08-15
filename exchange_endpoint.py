@@ -409,15 +409,21 @@ def trade():
             eth_sk, eth_pk = get_eth_keys()
             tx = w3.eth.get_transaction(tx_id)
             
-            if tx['from'] != payload.get("sender_pk"):
+            tx_sender = tx['from']
+            
+            if tx_sender != payload.get("sender_pk"):
                 print("Wrong sender_pk")
                 return jsonify(False)
             
-            if tx['to'] != eth_pk:
+            tx_receiver = tx['to']
+            
+            if tx_receiver != eth_pk:
                 print("Wrong eth_pk")
                 return jsonify(False)
             
-            if tx['value'] != payload.get("sell_amount"):
+            tx_value = tx['value']
+            
+            if tx_value != payload.get("sell_amount"):
                 print("Wrong sell_amount")
                 return jsonify(False)
         
@@ -428,11 +434,11 @@ def trade():
             print("This is Algorand and we should confirm if the transaction was sent")
             
             algo_sk, algo_pk = get_algo_keys()
-            print(algo_pk)
             algod_indexer = connect_to_algo(connection_type="indexer")
             
             response = algod_indexer.search_transactions(txid=tx_id, address = algo_pk)
             print("response created")
+            print(json.dumps(response, indent = 2, sort_keys=True))
             
             if response['transactions'][0]['sender'] != payload.get("sender_pk"):
                 print("Wrong sender_pk")
@@ -447,7 +453,7 @@ def trade():
                 return jsonify(False)
             
             
-#             print(json.dumps(response, indent = 2, sort_keys=True))
+            
 
 
         # 3b. Fill the order (as in Exchange Server II) if the order is valid
