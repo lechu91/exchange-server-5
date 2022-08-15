@@ -34,19 +34,23 @@ def send_tokens_algo( acl, sender_sk, txes):
     #       - Sign the transaction
     
     # TODO: Return a list of transaction id's
- 
+    
     sender_pk = account.address_from_private_key(sender_sk)
-
+    
+    print("CP1")
+    
     tx_ids = []
     for i,tx in enumerate(txes):
         
         print("Let's send an Algorand transaction!")
         
         unsigned_tx = transaction.PaymentTxn(sender_address,params,receiver_address,amount )
+        print("Unsigned tx created")
         
 
         # TODO: Sign the transaction
         signed_tx = unsigned_tx.sign(sender_sk)
+        print("Signed tx created")
         
         try:
             print(f"Sending {tx['amount']} microalgo from {sender_pk} to {tx['receiver_pk']}" )
@@ -54,14 +58,17 @@ def send_tokens_algo( acl, sender_sk, txes):
             # TODO: Send the transaction to the testnet
             
             acl.send_transaction(signed_tx)
+            print("Transaction sent")
             
             tx_id = unsigned_tx.get_txid()
+            print(tx_id)
             tx_ids.append(tx_id)
             time.sleep(5)
             txinfo = wait_for_confirmation_algo(acl, txid=tx_id )
             print(f"Sent {tx['amount']} microalgo in transaction: {tx_id}\n" )
             
             params.first += 1
+            print("Done")
             
         except Exception as e:
             print(e)
