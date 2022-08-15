@@ -155,6 +155,9 @@ def fill_order(new_order,txes=[]):
         # Check if currencies match
         if existing_order.buy_currency == new_order.sell_currency and existing_order.sell_currency == new_order.buy_currency:
 
+            print(existing_order.buy_currency)
+            print(new_order.buy_currency)
+            
             # Check if exchange rates match
             if existing_order.sell_amount * new_order.sell_amount >= new_order.buy_amount * existing_order.buy_amount:
                 
