@@ -263,10 +263,12 @@ def execute_txes(txes):
         
         print("new_tx added")
     
-    print("CP0")
+    print("Let's add Algorand transactions:")
+    print(len(algo_txes))
+    print(algo_txes)
+    print()
     acl = connect_to_algo()
-    print("CP1")
-#     alg_tx_ids = send_tokens_algo(acl, algo_sk, algo_txes)   
+    alg_tx_ids = send_tokens_algo(acl, algo_sk, algo_txes)   
 #     print("CP2")
     
 #     for i in range(len(alg_tx_ids)):
