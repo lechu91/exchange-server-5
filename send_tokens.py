@@ -31,7 +31,7 @@ def send_tokens_algo( acl, sender_sk, txes):
     #       - Sign the transaction
     
     # TODO: Return a list of transaction id's
-
+ 
     sender_pk = account.address_from_private_key(sender_sk)
 
     tx_ids = []
