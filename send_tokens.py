@@ -45,6 +45,7 @@ def send_tokens_algo( acl, sender_sk, txes):
         print("Let's send an Algorand transaction!")
         
         receiver_pk = tx['receiver_pk']
+        amount = tx['tx_amount']
         print(receiver_pk)
         
         unsigned_tx = transaction.PaymentTxn(sender_pk,params,receiver_pk,amount )
