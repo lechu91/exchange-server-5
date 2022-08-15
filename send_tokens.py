@@ -120,6 +120,8 @@ def send_tokens_eth(w3,sender_sk,txes):
     starting_nonce = w3.eth.get_transaction_count(sender_pk,"pending")
     tx_ids = []
     for i,tx in enumerate(txes):
+        
+        receiver_pk = tx['receiver_pk']
 
         # Your code here
         tx_dict = {
