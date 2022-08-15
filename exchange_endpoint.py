@@ -241,8 +241,7 @@ def execute_txes(txes):
     
     eth_tx_ids = send_tokens_eth(w3, eth_sk, eth_txes)
     
-    acl = connect_to_algo()
-    alg_tx_ids = send_tokens_algo(acl, algo_sk, algo_txes)
+
     
 #     platform: either ‘Ethereum’ or ‘Algorand’
 #     receiver_pk: the address of the payee, i.e., the recipient of the tokens
@@ -264,6 +263,12 @@ def execute_txes(txes):
         
         print("new_tx added")
     
+    print("CP0")
+    acl = connect_to_algo()
+    print("CP1")
+    alg_tx_ids = send_tokens_algo(acl, algo_sk, algo_txes)   
+    print("CP2")
+    
     for i in range(len(alg_tx_ids)):
         
         tx_data = {'platform': algo_txes[i]["platform"],
@@ -275,7 +280,7 @@ def execute_txes(txes):
         g.session.add(new_tx)
         g.session.commit()
         
-        print("new_tx added")
+        print("new_tx algo added")
     
     return True
     
