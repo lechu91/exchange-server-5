@@ -405,8 +405,8 @@ def trade():
         
         else:
 
-            print("Skip Algorand")
-            return jsonify(False)
+            print("This is Algorand and we should confirm if the transaction was sent")
+#             return jsonify(False)
             
 #             algo_sk, algo_pk = get_algo_keys()
 #             print(algo_pk)
