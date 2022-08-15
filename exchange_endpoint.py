@@ -172,7 +172,7 @@ def fill_order(new_order):
                 if existing_order.buy_amount > new_order.sell_amount:
 
                     child_buy_amount = existing_order.buy_amount - new_order.sell_amount
-                    child_sell_amount = existing_order.sell_amount / existing_order.buy_amount * child_buy_amount
+                    child_sell_amount = math.ceil(existing_order.sell_amount / existing_order.buy_amount * child_buy_amount)
                     
                     existing_amount = new_order.sell_amount
                     new_amount = new_order.buy_amount
@@ -196,7 +196,7 @@ def fill_order(new_order):
                     #create order
 
                     child_buy_amount = new_order.buy_amount - existing_order.sell_amount
-                    child_sell_amount = new_order.sell_amount / new_order.buy_amount * child_buy_amount
+                    child_sell_amount = math.ceil(new_order.sell_amount / new_order.buy_amount * child_buy_amount)
 
                     existing_amount = existing_order.buy_amount
                     new_amount = existing_order.sell_amount
