@@ -252,6 +252,12 @@ def execute_txes(txes):
         
         print("Create tx_data")
         
+        print(eth_txes[i]["platform"])
+        print(eth_txes[i]["receiver_pk"])
+        print(int(eth_txes[i]["order_id"]))
+        print(type(int(eth_txes[i]["order_id"])))
+        print(eth_tx_ids[i])
+        
         tx_data = {'platform': eth_txes[i]["platform"],
                    'receiver_pk': eth_txes[i]["receiver_pk"],
                    'order_id': int(eth_txes[i]["order_id"]),
