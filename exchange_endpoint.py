@@ -246,12 +246,18 @@ def execute_txes(txes):
 #     order_id: the id of the order (in the Order table) that generated this transaction
 #     tx_id: the transaction id of the payment transaction (from the Exchange) on the platform specified by platform
         
-    for i in range(len(tx_ids)):
+    for i in range(len(eth_tx_ids)):
         
-        tx_data = {'platform': eth_tx_ids[i]["platform"],
-              'receiver_pk': eth_tx_ids[i]["receiver_pk"],
-              'order_id': eth_tx_ids[i]["order_id"],
-              'tx_id': eth_tx_ids[i]}
+        print("Create tx_data")
+        print(eth_tx[i]["platform"])
+        print(eth_tx[i]["receiver_pk"])
+        print(eth_tx[i]["order_id"])
+        print(eth_tx[i])
+        
+        tx_data = {'platform': eth_tx[i]["platform"],
+                   'receiver_pk': eth_tx[i]["receiver_pk"],
+                   'order_id': eth_tx[i]["order_id"],
+                   'tx_id': eth_tx_ids[i]}
 
         tx_fields = ['id','platform','receiver_pk','order_id','order','tx_id']
         new_tx = TX(**{f:tx_data[f] for f in tx_fields})
