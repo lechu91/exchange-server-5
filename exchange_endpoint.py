@@ -246,20 +246,21 @@ def execute_txes(txes):
 #     order_id: the id of the order (in the Order table) that generated this transaction
 #     tx_id: the transaction id of the payment transaction (from the Exchange) on the platform specified by platform
         
+    tx_fields = ['id','platform','receiver_pk','order_id','order','tx_id']
+    
     for i in range(len(eth_tx_ids)):
         
         print("Create tx_data")
-        print(eth_tx[i]["platform"])
-        print(eth_tx[i]["receiver_pk"])
-        print(eth_tx[i]["order_id"])
-        print(eth_tx[i])
+        print(eth_txes[i]["platform"])
+        print(eth_txes[i]["receiver_pk"])
+        print(eth_txes[i]["order_id"])
+        print(eth_tx_ids[i])
         
-        tx_data = {'platform': eth_tx[i]["platform"],
-                   'receiver_pk': eth_tx[i]["receiver_pk"],
-                   'order_id': eth_tx[i]["order_id"],
+        tx_data = {'platform': eth_txes[i]["platform"],
+                   'receiver_pk': eth_txes[i]["receiver_pk"],
+                   'order_id': eth_txes[i]["order_id"],
                    'tx_id': eth_tx_ids[i]}
-
-        tx_fields = ['id','platform','receiver_pk','order_id','order','tx_id']
+        
         new_tx = TX(**{f:tx_data[f] for f in tx_fields})
 
         g.session.add(new_tx)
