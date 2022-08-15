@@ -241,6 +241,9 @@ def execute_txes(txes):
     
     eth_tx_ids = send_tokens_eth(w3, eth_sk, eth_txes)
     
+    acl = connect_to_algo()
+    alg_tx_ids = send_tokens_algo(acl, algo_sk, algo_txes)
+    
 #     platform: either ‘Ethereum’ or ‘Algorand’
 #     receiver_pk: the address of the payee, i.e., the recipient of the tokens
 #     order_id: the id of the order (in the Order table) that generated this transaction
@@ -254,6 +257,19 @@ def execute_txes(txes):
                    'receiver_pk': eth_txes[i]["receiver_pk"],
                    'order_id': int(eth_txes[i]["order_id"]),
                    'tx_id': eth_tx_ids[i]}
+        
+        new_tx = TX(**{f:tx_data[f] for f in tx_fields})
+        g.session.add(new_tx)
+        g.session.commit()
+        
+        print("new_tx added")
+    
+    for i in range(len(alg_tx_ids)):
+        
+        tx_data = {'platform': alg_txes[i]["platform"],
+                   'receiver_pk': alg_txes[i]["receiver_pk"],
+                   'order_id': int(alg_txes[i]["order_id"]),
+                   'tx_id': alg_tx_ids[i]}
         
         new_tx = TX(**{f:tx_data[f] for f in tx_fields})
         g.session.add(new_tx)
