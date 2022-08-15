@@ -4,6 +4,7 @@ from algosdk.v2client import algod
 from algosdk.v2client import indexer
 from algosdk import account
 from algosdk.future import transaction
+import time
 
 def connect_to_algo(connection_type=''):
     #Connect to Algorand node maintained by PureStake
@@ -68,13 +69,13 @@ def send_tokens_algo( acl, sender_sk, txes):
             time.sleep(5)
             txinfo = wait_for_confirmation_algo(acl, txid=tx_id )
             print(f"Sent {tx['tx_amount']} microalgo in transaction: {tx_id}\n" )
-            
-            params.first += 1
             print("Done")
             
         except Exception as e:
             print("Hello world")
             print(e)
+        
+        params.first += 1
 
     return tx_ids
 
