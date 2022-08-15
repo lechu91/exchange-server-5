@@ -348,7 +348,7 @@ def trade():
     print( "In trade", file=sys.stderr )
     connect_to_blockchains()
     connect_to_eth()
-    get_keys()
+#     get_keys()
     if request.method == "POST":
         content = request.get_json(silent=True)
         columns = [ "buy_currency", "sell_currency", "buy_amount", "sell_amount", "platform", "tx_id", "receiver_pk"]
@@ -414,7 +414,11 @@ def trade():
             tx_sender = tx['from']
             tx_receiver = tx['to']
             tx_value = tx['value']
-        
+            
+            if tx_receiver != eth_pk:
+                print("Wrong eth_pk")
+                return jsonify(False)
+
         else:
 
             algo_sk, algo_pk = get_algo_keys()
@@ -428,12 +432,13 @@ def trade():
             tx_receiver = response['transactions'][0]['payment-transaction']['receiver']
             tx_value = response['transactions'][0]['payment-transaction']['amount']
             
+            if tx_receiver != algo_pk:
+                print("Wrong algo_pk")
+                return jsonify(False)
+            
+            
         if tx_sender != payload.get("sender_pk"):
             print("Wrong sender_pk")
-            return jsonify(False)
-
-        if tx_receiver != eth_pk:
-            print("Wrong eth_pk")
             return jsonify(False)
 
         if tx_value != payload.get("sell_amount"):
