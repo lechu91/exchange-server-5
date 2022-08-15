@@ -242,8 +242,37 @@ def execute_txes(txes):
     #       2. Add all transactions to the TX table
     
     
-    send_tokens_eth(w3, eth_sk, eth_txes)
+    eth_tx_ids = send_tokens_eth(w3, eth_sk, eth_txes)
     print("CP4")
+    
+#     platform: either ‘Ethereum’ or ‘Algorand’
+#     receiver_pk: the address of the payee, i.e., the recipient of the tokens
+#     order_id: the id of the order (in the Order table) that generated this transaction
+#     tx_id: the transaction id of the payment transaction (from the Exchange) on the platform specified by platform
+        
+    for i in range(len(tx_ids)):
+        
+        tx_data = {'platform': eth_tx_ids[i]["platform"],
+              'receiver_pk': eth_tx_ids[i]["receiver_pk"],
+              'order_id': eth_tx_ids[i]["order_id"],
+              'tx_id': eth_tx_ids[i]}
+
+        tx_fields = ['id','platform','receiver_pk','order_id','order','tx_id']
+        tx = TX(**{f:tx_data[f] for f in tx_fields})
+
+        g.session.add(new_order)
+        g.session.commit()
+        
+        tx = {
+        
+        eth_txes
+        
+
+                   
+    
+    
+    
+    
     return True
     
 
