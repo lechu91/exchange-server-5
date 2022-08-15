@@ -161,6 +161,8 @@ def send_tokens_eth(w3,sender_sk,txes):
         
         print("CP6")
         
+        print(tx_dict)
+        
         signed_txn = w3.eth.account.sign_transaction(tx_dict, sender_sk)
         print("Let's send an Ethereum transaction!")
         tx_id = w3.eth.send_raw_transaction(signed_txn.rawTransaction)
