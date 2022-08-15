@@ -208,9 +208,12 @@ def fill_order(new_order,txes=[]):
     else: 
         buy_amount = new_order.buy_amount
         sell_amount = new_order.sell_amount / new_order.buy_amount * buy_amount
-        
+    
+    print("Currencies of orders created:")
     txes.append({'order_id':existing_order.id, 'platform': existing_order.buy_currency, 'tx_amount': buy_amount, 'receiver_pk': existing_order.receiver_pk})
+    print(existing_order.buy_currency)
     txes.append({'order_id':new_order.id, 'platform': new_order.buy_currency, 'tx_amount': sell_amount, 'receiver_pk': new_order.receiver_pk})
+    print(new_order.buy_currency)
     
     return txes
     
