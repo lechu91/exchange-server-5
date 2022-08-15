@@ -39,7 +39,11 @@ def send_tokens_algo( acl, sender_sk, txes):
 
     tx_ids = []
     for i,tx in enumerate(txes):
+        
+        print("Let's send an Algorand transaction!")
+        
         unsigned_tx = transaction.PaymentTxn(sender_address,params,receiver_address,amount )
+        
 
         # TODO: Sign the transaction
         signed_tx = unsigned_tx.sign(sender_sk)
