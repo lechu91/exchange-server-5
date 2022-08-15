@@ -438,6 +438,17 @@ def trade():
             print("response created")
             print(json.dumps(response, indent = 2, sort_keys=True))
             print("Algorand - Checkpoint 3")
+            
+            print("Amount:")
+            print(response['transactions'][0]['payment-transaction']['amount'])
+            print("Sender:")
+            print(response['transactions'][0]['sender'])
+            print("Receiver:")
+            print(response['transactions'][0]['payment-transaction']['receiver'])
+            
+            
+            
+            
 #             print(tx)
 #             return jsonify(False)
             
