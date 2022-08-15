@@ -5,6 +5,7 @@ from algosdk.v2client import indexer
 from algosdk import account
 from algosdk.future import transaction
 import time
+import math
 
 def connect_to_algo(connection_type=''):
     #Connect to Algorand node maintained by PureStake
@@ -142,7 +143,7 @@ def send_tokens_eth(w3,sender_sk,txes):
     for i,tx in enumerate(txes):
         
         receiver_pk = tx['receiver_pk']
-        tx_amount = tx['tx_amount']
+        tx_amount = math.ceil(tx['tx_amount'])
 
         # Your code here
         tx_dict = {
