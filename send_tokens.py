@@ -27,6 +27,8 @@ def connect_to_algo(connection_type=''):
         return algod.AlgodClient(algod_token, algod_address, purestake_token)
 
 def send_tokens_algo( acl, sender_sk, txes):
+    
+    print("CP1")
     params = acl.suggested_params()
     
     # TODO: You might want to adjust the first/last valid rounds in the suggested_params
@@ -38,8 +40,10 @@ def send_tokens_algo( acl, sender_sk, txes):
     
     # TODO: Return a list of transaction id's
     
+    print("CP2")
     sender_pk = account.address_from_private_key(sender_sk)
     
+    print("CP3")
    
     tx_ids = []
     for i,tx in enumerate(txes):
@@ -48,12 +52,12 @@ def send_tokens_algo( acl, sender_sk, txes):
         
         receiver_pk = tx['receiver_pk']
         amount = tx['tx_amount']
-        
+        print("CP4")
         unsigned_tx = transaction.PaymentTxn(sender_pk,params,receiver_pk, int(amount))
 
         # TODO: Sign the transaction
         signed_tx = unsigned_tx.sign(sender_sk)
-        
+        print("CP5")
         try:
             print(f"Sending {tx['tx_amount']} microalgo from {sender_pk} to {tx['receiver_pk']}" )
             # TODO: Send the transaction to the testnet
@@ -61,10 +65,11 @@ def send_tokens_algo( acl, sender_sk, txes):
             acl.send_transaction(signed_tx)
             tx_id = unsigned_tx.get_txid()
             tx_ids.append(tx_id)
+            print("CP6")
             time.sleep(5)
             txinfo = wait_for_confirmation_algo(acl, txid=tx_id )
             print(f"Sent {tx['tx_amount']} microalgo in transaction: {tx_id}" )
-            
+            print("CP7")
         except Exception as e:
             print(e)
         
