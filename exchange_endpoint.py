@@ -243,8 +243,8 @@ def execute_txes(txes):
     
     send_tokens_eth(w3, eth_sk, eth_txes)
     
+    return True
     
-    pass
 
 """ End of Helper methods"""
   
@@ -416,10 +416,9 @@ def trade():
         
         # 4. Execute the transactions
         
-        if execute_txes(txes):
-        
-        # If all goes well, return jsonify(True). else return jsonify(False)
-        print("Return jsonify true")
+        if execute_txes(txes) = True:
+            # If all goes well, return jsonify(True). else return jsonify(False)
+            print("Return jsonify true")
             return jsonify(True)
 
         else:
