@@ -222,21 +222,16 @@ def execute_txes(txes):
         return True
     print( f"Trying to execute {len(txes)} transactions" )
     print( f"IDs = {[tx['order_id'] for tx in txes]}" )
-    print("CP0")
 
     eth_sk, eth_pk = get_eth_keys()
     algo_sk, algo_pk = get_algo_keys()
-    print("CP1")
     
     if not all( tx['platform'] in ["Algorand","Ethereum"] for tx in txes ):
         print( "Error: execute_txes got an invalid platform!" )
         print( tx['platform'] for tx in txes )
-    print("CP2")
     
     algo_txes = [tx for tx in txes if tx['platform'] == "Algorand" ]
     eth_txes = [tx for tx in txes if tx['platform'] == "Ethereum" ]
-    
-    print("CP3")
     
     # TODO: 
     #       1. Send tokens on the Algorand and eth testnets, appropriately
@@ -245,7 +240,6 @@ def execute_txes(txes):
     
     
     eth_tx_ids = send_tokens_eth(w3, eth_sk, eth_txes)
-    print("CP4")
     
 #     platform: either ‘Ethereum’ or ‘Algorand’
 #     receiver_pk: the address of the payee, i.e., the recipient of the tokens
