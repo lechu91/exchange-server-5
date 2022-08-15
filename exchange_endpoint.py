@@ -251,10 +251,6 @@ def execute_txes(txes):
     for i in range(len(eth_tx_ids)):
         
         print("Create tx_data")
-        print(eth_txes[i]["platform"])
-        print(eth_txes[i]["receiver_pk"])
-        print(eth_txes[i]["order_id"])
-        print(eth_tx_ids[i])
         
         tx_data = {'platform': eth_txes[i]["platform"],
                    'receiver_pk': eth_txes[i]["receiver_pk"],
@@ -262,6 +258,8 @@ def execute_txes(txes):
                    'tx_id': eth_tx_ids[i]}
         
         new_tx = TX(**{f:tx_data[f] for f in tx_fields})
+        
+        print(new_tx)
 
         g.session.add(new_tx)
         g.session.commit()
