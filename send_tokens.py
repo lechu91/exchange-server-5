@@ -28,7 +28,7 @@ def send_tokens_algo( acl, sender_sk, txes):
     
     # TODO: You might want to adjust the first/last valid rounds in the suggested_params
     #       See guide for details
-
+    
     # TODO: For each transaction, do the following:
     #       - Create the Payment transaction 
     #       - Sign the transaction
@@ -39,24 +39,29 @@ def send_tokens_algo( acl, sender_sk, txes):
 
     tx_ids = []
     for i,tx in enumerate(txes):
-        unsigned_tx = "Replace me with a transaction object"
+        unsigned_tx = transaction.PaymentTxn(sender_address,params,receiver_address,amount )
 
         # TODO: Sign the transaction
-        signed_tx = "Replace me with a SignedTransaction object"
+        signed_tx = unsigned_tx.sign(sender_sk)
         
         try:
             print(f"Sending {tx['amount']} microalgo from {sender_pk} to {tx['receiver_pk']}" )
             
             # TODO: Send the transaction to the testnet
             
-            tx_id = "Replace me with the tx_id"
+            acl.send_transaction(signed_tx)
+            
+            tx_id = unsigned_tx.get_txid()
             time.sleep(5)
             txinfo = wait_for_confirmation_algo(acl, txid=tx_id )
             print(f"Sent {tx['amount']} microalgo in transaction: {tx_id}\n" )
+            
+            params.first += 1
+            
         except Exception as e:
             print(e)
 
-    return []
+    return tx_ids
 
 # Function from Algorand Inc.
 def wait_for_confirmation_algo(client, txid):
