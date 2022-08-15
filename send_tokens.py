@@ -37,8 +37,7 @@ def send_tokens_algo( acl, sender_sk, txes):
     
     sender_pk = account.address_from_private_key(sender_sk)
     
-    print("CP1")
-    
+   
     tx_ids = []
     for i,tx in enumerate(txes):
         
@@ -55,8 +54,9 @@ def send_tokens_algo( acl, sender_sk, txes):
         print("Signed tx created")
         
         try:
+            print("CP1")
             print(f"Sending {tx['amount']} microalgo from {sender_pk} to {tx['receiver_pk']}" )
-            
+            print("CP2")
             # TODO: Send the transaction to the testnet
             
             acl.send_transaction(signed_tx)
@@ -73,6 +73,7 @@ def send_tokens_algo( acl, sender_sk, txes):
             print("Done")
             
         except Exception as e:
+            print("Hello world")
             print(e)
 
     return tx_ids
