@@ -328,15 +328,19 @@ def check_sig(payload,sig):
         eth_encoded_msg = eth_account.messages.encode_defunct(text=payload_text)
 
         if eth_account.Account.recover_message(eth_encoded_msg, signature=sig) == pk:
+            print("Ethereum True")
             return True
         else:
+            print("Ethereum False")
             log_message(payload_text)
             return False
     else:
         # Check Algorand
         if algosdk.util.verify_bytes(payload_text.encode('utf-8'),sig,pk):
+            print("Algorand True")
             return True                   
         else:
+            print("Algorand False")
             log_message(payload_text)
             return False
         
