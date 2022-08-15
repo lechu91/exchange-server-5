@@ -387,7 +387,7 @@ def trade():
             
             algod_indexer = connect_to_algo(connection_type="indexer")
             
-#             tx = algod_indexer.search_transactions(txid=tx_id)
+            tx = algod_indexer.search_transactions(txid=tx_id)
             print("Algorand 1")
 
 
