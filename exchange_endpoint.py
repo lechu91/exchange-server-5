@@ -266,9 +266,9 @@ def execute_txes(txes):
     
     for i in range(len(alg_tx_ids)):
         
-        tx_data = {'platform': alg_txes[i]["platform"],
-                   'receiver_pk': alg_txes[i]["receiver_pk"],
-                   'order_id': int(alg_txes[i]["order_id"]),
+        tx_data = {'platform': algo_txes[i]["platform"],
+                   'receiver_pk': algo_txes[i]["receiver_pk"],
+                   'order_id': int(algo_txes[i]["order_id"]),
                    'tx_id': alg_tx_ids[i]}
         
         new_tx = TX(**{f:tx_data[f] for f in tx_fields})
