@@ -292,6 +292,8 @@ def execute_txes(txes):
 
         print("new_tx algo added")
         
+    
+    print("Transactions were executed")
     return True
     
 
@@ -446,12 +448,11 @@ def trade():
         
         # 4. Execute the transactions
         
-        if txes = []:
+        if txes == []:
             return jsonify(False)
         
         if execute_txes(txes) == True:
             # If all goes well, return jsonify(True). else return jsonify(False)
-            print("Return jsonify true")
             return jsonify(True)
         else:
             return jsonify(False)
