@@ -213,8 +213,8 @@ def fill_order(new_order,txes=[]):
         session.commit()
         print("Child created")
         
-    txes.append({'platform': existing_order.buy_currency, 'tx_amount': buy_amount, 'receiver_pk': existing_order.receiver_pk})
-    txes.append({'platform': new_order.buy_currency, 'tx_amount': sell_amount, 'receiver_pk': new_order.receiver_pk})
+    txes.append({'order_id':existing_order.id, 'platform': existing_order.buy_currency, 'tx_amount': buy_amount, 'receiver_pk': existing_order.receiver_pk})
+    txes.append({'order_id':new_order.id, 'platform': new_order.buy_currency, 'tx_amount': sell_amount, 'receiver_pk': new_order.receiver_pk})
     
     return txes
     
