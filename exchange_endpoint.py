@@ -257,10 +257,7 @@ def execute_txes(txes):
     
     print("Let's add Algorand transactions:")
     print(len(algo_txes))
-    print(algo_txes)
     acl = connect_to_algo()
-    print("acl created")
-    print(acl)
     alg_tx_ids = send_tokens_algo(acl, algo_sk, algo_txes)   
     print("alg_tx_ids created")
     
@@ -437,7 +434,6 @@ def trade():
             # If all goes well, return jsonify(True). else return jsonify(False)
             print("Return jsonify true")
             return jsonify(True)
-
         else:
             return jsonify(False)
         
