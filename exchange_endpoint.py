@@ -384,12 +384,13 @@ def trade():
         
         else:
             print("Platform is Algorand")
+            algo_sk, algo_pk = get_algo_keys()
             
             algod_indexer = connect_to_algo(connection_type="indexer")
             print("Algorand - Checkpoint 1")
             print(algod_indexer)
             print("Algorand - Checkpoint 2")
-            response = algod_indexer.search_transactions(txid=tx_id, address = payload.get("sender_pk"))
+            response = algod_indexer.search_transactions(txid=tx_id, address = algo_pk)
             print("response created")
             print(json.dumps(response, indent = 2, sort_keys=True))
             print("Algorand - Checkpoint 3")
