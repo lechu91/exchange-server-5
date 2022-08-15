@@ -431,27 +431,23 @@ def trade():
             print(algo_pk)
             algod_indexer = connect_to_algo(connection_type="indexer")
             
-            print("Algorand - Checkpoint 1")
-            print(algod_indexer)
-            print("Algorand - Checkpoint 2")
             response = algod_indexer.search_transactions(txid=tx_id, address = algo_pk)
             print("response created")
-            print(json.dumps(response, indent = 2, sort_keys=True))
-            print("Algorand - Checkpoint 3")
             
-            print("Amount:")
-            print(response['transactions'][0]['payment-transaction']['amount'])
-            print("Sender:")
-            print(response['transactions'][0]['sender'])
-            print("Receiver:")
-            print(response['transactions'][0]['payment-transaction']['receiver'])
+            if response['transactions'][0]['sender'] != payload.get("sender_pk"):
+                print("Wrong sender_pk")
+                return jsonify(False)
+            
+            if response['transactions'][0]['payment-transaction']['receiver'] != eth_pk:
+                print("Wrong eth_pk")
+                return jsonify(False)
+            
+            if response['transactions'][0]['payment-transaction']['receiver'] != payload.get("sell_amount"):
+                print("Wrong sell_amount")
+                return jsonify(False)
             
             
-            
-            
-#             print(tx)
-#             return jsonify(False)
-            
+#             print(json.dumps(response, indent = 2, sort_keys=True))
 
 
         # 3b. Fill the order (as in Exchange Server II) if the order is valid
