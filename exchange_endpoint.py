@@ -292,8 +292,6 @@ def address():
 
 def check_sig(payload,sig):
     
-    print("Check if signature is valid")
-    
     payload_text = json.dumps(payload)
     pk = payload.get("sender_pk")
     
@@ -319,7 +317,7 @@ def check_sig(payload,sig):
 @app.route('/trade', methods=['POST'])
 def trade():
     print()
-    print("New trade")
+    print("Trade")
     print( "In trade", file=sys.stderr )
     connect_to_blockchains()
     connect_to_eth()
@@ -355,18 +353,13 @@ def trade():
         
         # 1. Check the signature
         
-        print("Check the signature")
-        
         if not check_sig(payload,sig):
+            print("Wrong signature")
             print("Return jsonify false")
             return jsonify( False )
         
         # 2. Add the order to the table
         
-        print("Add order to table")
-        
-        # Create order
-
         order_data = {'sender_pk': payload.get("sender_pk"),
                       'receiver_pk': payload.get("receiver_pk"),
                       'buy_currency': payload.get("buy_currency"),
@@ -384,40 +377,40 @@ def trade():
         
         # 3a. Check if the order is backed by a transaction equal to the sell_amount (this is new)
         
-        print("Check tx")
         print(platform)
         if platform == "Ethereum":
-
-            print("Platform is Ethereum")
 
             eth_sk, eth_pk = get_eth_keys()
             tx = w3.eth.get_transaction(tx_id)
             
             if tx['from'] != payload.get("sender_pk"):
+                print("Wrong sender_pk")
                 return jsonify(False)
             
             if tx['to'] != eth_pk:
+                print("Wrong eth_pk")
                 return jsonify(False)
-            
-            
-            
-#             if tx['value'] != 
-
+        
+            # Pending to add other Ethereum checks
         
         else:
-            print("Platform is Algorand")
-            algo_sk, algo_pk = get_algo_keys()
-            print(algo_pk)
+
+            print("Skip Algorand")
+            return jsonify(False)
             
-            algod_indexer = connect_to_algo(connection_type="indexer")
-            print("Algorand - Checkpoint 1")
-            print(algod_indexer)
-            print("Algorand - Checkpoint 2")
-            response = algod_indexer.search_transactions(txid=tx_id, address = algo_pk)
-            print("response created")
-            print(json.dumps(response, indent = 2, sort_keys=True))
-            print("Algorand - Checkpoint 3")
-            print(tx)
+#             algo_sk, algo_pk = get_algo_keys()
+#             print(algo_pk)
+#             algod_indexer = connect_to_algo(connection_type="indexer")
+#             print("Algorand - Checkpoint 1")
+#             print(algod_indexer)
+#             print("Algorand - Checkpoint 2")
+#             response = algod_indexer.search_transactions(txid=tx_id, address = algo_pk)
+#             print("response created")
+#             print(json.dumps(response, indent = 2, sort_keys=True))
+#             print("Algorand - Checkpoint 3")
+#             print(tx)
+            
+
 
         # 3b. Fill the order (as in Exchange Server II) if the order is valid
         
