@@ -442,11 +442,12 @@ def trade():
 
         # 3b. Fill the order (as in Exchange Server II) if the order is valid
         
-        print("Fill order")
-        
         txes = fill_order(new_order)
         
         # 4. Execute the transactions
+        
+        if txes = []:
+            return jsonify(False)
         
         if execute_txes(txes) == True:
             # If all goes well, return jsonify(True). else return jsonify(False)
