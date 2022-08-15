@@ -254,8 +254,8 @@ def execute_txes(txes):
         
         tx_data = {'platform': eth_txes[i]["platform"],
                    'receiver_pk': eth_txes[i]["receiver_pk"],
-                   'order_id': eth_txes[i]["order_id"],
-                   'tx_id': eth_tx_ids[i]}
+                   'order_id': int(eth_txes[i]["order_id"]),
+                   'tx_id': eth_tx_ids[i],''}
         
         new_tx = TX(**{f:tx_data[f] for f in tx_fields})
         
