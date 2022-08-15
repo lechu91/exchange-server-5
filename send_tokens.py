@@ -128,12 +128,8 @@ def wait_for_confirmation_eth(w3, tx_hash):
 
 ####################
 def send_tokens_eth(w3,sender_sk,txes):
-    print("CP1")
     sender_account = w3.eth.account.privateKeyToAccount(sender_sk)
-    print("CP2")
     sender_pk = sender_account._address
-
-    print("CP3")
         
     # TODO: For each of the txes, sign and send them to the testnet
     # Make sure you track the nonce -locally-
@@ -141,15 +137,11 @@ def send_tokens_eth(w3,sender_sk,txes):
     
     starting_nonce = w3.eth.get_transaction_count(sender_pk,"pending")
     tx_ids = []
-
-    print("CP4")
     
     for i,tx in enumerate(txes):
         
         receiver_pk = tx['receiver_pk']
         tx_amount = tx['tx_amount']
-        
-        print("CP5")
 
         # Your code here
         tx_dict = {
@@ -160,14 +152,11 @@ def send_tokens_eth(w3,sender_sk,txes):
                 'value': tx_amount,
                 'data':b'' }
         
-        print("CP6")
-        
-        print(tx_dict)
-        
+        print("Is there enough funds?")
         signed_txn = w3.eth.account.sign_transaction(tx_dict, sender_sk)
+        print("Yes")
         print("Let's send an Ethereum transaction!")
         tx_id = w3.eth.send_raw_transaction(signed_txn.rawTransaction)
-        print("CP7")
         tx_ids.append(tx_id)
     
     return tx_ids
