@@ -412,7 +412,7 @@ def trade():
         # 3b. Fill the order (as in Exchange Server II) if the order is valid
         
         print("Fill order")
-        eth_txes,  = fill_order(new_order)
+        txes = fill_order(new_order)
         
         # 4. Execute the transactions
         
