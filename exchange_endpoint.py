@@ -443,7 +443,7 @@ def trade():
             algod_indexer = connect_to_algo(connection_type="indexer")
             print("CP8.2")
             
-            if len(response['transactions']) == 0:
+            if len(response['transactions']) is None:
                 return jsonify(False)
             print("CP8.3")
             
