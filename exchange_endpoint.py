@@ -378,7 +378,6 @@ def trade():
         
         payload = content.get("payload")
         sig = content.get('sig')
-        platform = payload.get("platform")
         tx_id = payload.get("tx_id")
         print("CP3")
         # 1. Check the signature
@@ -410,7 +409,7 @@ def trade():
         
         # 3a. Check if the order is backed by a transaction equal to the sell_amount (this is new)
         
-        if platform == "Ethereum":
+        if payload.get("sell_currency") == "Ethereum":
             
             print("CP7.1")
             eth_sk, eth_pk = get_eth_keys()
