@@ -410,22 +410,20 @@ def trade():
             tx = w3.eth.get_transaction(tx_id)
             
             tx_sender = tx['from']
-            
-            if tx_sender != payload.get("sender_pk"):
-                print("Wrong sender_pk")
-                return jsonify(False)
-            
             tx_receiver = tx['to']
-            
-            if tx_receiver != eth_pk:
-                print("Wrong eth_pk")
-                return jsonify(False)
-            
             tx_value = tx['value']
             
-            if tx_value != payload.get("sell_amount"):
-                print("Wrong sell_amount")
-                return jsonify(False)
+#             if tx_sender != payload.get("sender_pk"):
+#                 print("Wrong sender_pk")
+#                 return jsonify(False)
+            
+#             if tx_receiver != eth_pk:
+#                 print("Wrong eth_pk")
+#                 return jsonify(False)
+            
+#             if tx_value != payload.get("sell_amount"):
+#                 print("Wrong sell_amount")
+#                 return jsonify(False)
         
             # Pending to add other Ethereum checks
         
@@ -440,17 +438,21 @@ def trade():
             print("response created")
             print(json.dumps(response, indent = 2, sort_keys=True))
             
-            if response['transactions'][0]['sender'] != payload.get("sender_pk"):
-                print("Wrong sender_pk")
-                return jsonify(False)
+            tx_sender = response['transactions'][0]['sender']
+            tx_receiver = response['transactions'][0]['payment-transaction']['receiver']
+            tx_value = response['transactions'][0]['payment-transaction']['amount']
             
-            if response['transactions'][0]['payment-transaction']['receiver'] != eth_pk:
-                print("Wrong eth_pk")
-                return jsonify(False)
-            
-            if response['transactions'][0]['payment-transaction']['receiver'] != payload.get("sell_amount"):
-                print("Wrong sell_amount")
-                return jsonify(False)
+        if tx_sender != payload.get("sender_pk"):
+            print("Wrong sender_pk")
+            return jsonify(False)
+
+        if tx_receiver != eth_pk:
+            print("Wrong eth_pk")
+            return jsonify(False)
+
+        if tx_value != payload.get("sell_amount"):
+            print("Wrong sell_amount")
+            return jsonify(False)
             
             
             
