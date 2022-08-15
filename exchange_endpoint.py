@@ -184,9 +184,8 @@ def fill_order(new_order,txes=[]):
         child_order = Order(**{f:child_data[f] for f in fields_child})
         session.add(child_order)
         session.commit()
-        print("Child created")
 
-    elif new_order.buy_amount >= existing_order.sell_amount:
+    elif new_order.buy_amount > existing_order.sell_amount:
         #create order
 
         buy_amount = new_order.buy_amount - existing_order.sell_amount
@@ -205,7 +204,10 @@ def fill_order(new_order,txes=[]):
         child_order = Order(**{f:child_data[f] for f in fields_child})
         session.add(child_order)
         session.commit()
-        print("Child created")
+        
+    else: 
+        buy_amount = new_order.buy_amount
+        sell_amount = new_order.sell_amount / new_order.buy_amount * buy_amount
         
     txes.append({'order_id':existing_order.id, 'platform': existing_order.buy_currency, 'tx_amount': buy_amount, 'receiver_pk': existing_order.receiver_pk})
     txes.append({'order_id':new_order.id, 'platform': new_order.buy_currency, 'tx_amount': sell_amount, 'receiver_pk': new_order.receiver_pk})
@@ -355,7 +357,6 @@ def trade():
         
         if not check_sig(payload,sig):
             print("Wrong signature")
-            print("Return jsonify false")
             return jsonify( False )
         
         # 2. Add the order to the table
@@ -415,6 +416,7 @@ def trade():
         # 3b. Fill the order (as in Exchange Server II) if the order is valid
         
         print("Fill order")
+        
         txes = fill_order(new_order)
         
         # 4. Execute the transactions
