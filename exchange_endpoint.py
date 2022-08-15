@@ -385,7 +385,7 @@ def trade():
         else:
             print("Platform is Algorand")
             algo_sk, algo_pk = get_algo_keys()
-            print(aldo_pk)
+            print(algo_pk)
             
             algod_indexer = connect_to_algo(connection_type="indexer")
             print("Algorand - Checkpoint 1")
