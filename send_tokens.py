@@ -8,8 +8,8 @@ import time
 
 def connect_to_algo(connection_type=''):
     #Connect to Algorand node maintained by PureStake
-#     algod_token = "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab"
-    algod_token = "TYkiJsuf5j7rvyukv5yoe9wC40UCEXHzaoK3YnSQ"
+    algod_token = "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab"
+#     algod_token = "TYkiJsuf5j7rvyukv5yoe9wC40UCEXHzaoK3YnSQ"
     
     if connection_type == "indexer":
         # TODO: return an instance of the v2client indexer. This is used for checking payments for tx_id's
