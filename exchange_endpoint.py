@@ -390,7 +390,9 @@ def trade():
             print(algod_indexer)
             print("Algorand 1.5")
             print(tx_id)
-            tx = algod_indexer.search_transactions(txid=tx_id, address = payload.get("sender_pk"))
+            response = algod_indexer.search_transactions(txid=tx_id)
+            #, address = payload.get("sender_pk")
+            print(json.dumps(response, indent = 2, sort_keys=True))
             print("Algorand 2")
             print(tx)
 
