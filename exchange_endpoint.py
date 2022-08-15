@@ -40,9 +40,7 @@ new_order_fields = ['sender_pk','receiver_pk','buy_currency','sell_currency','bu
 # print("ALG Mnemonic:")
 # print(mnemonic_secret_alg)
 
-
 w3 = connect_to_eth()
-
 engine = create_engine('sqlite:///orders.db')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
@@ -116,7 +114,6 @@ def log_message(message_dict):
     msg = json.dumps(message_dict)
 
     # TODO: Add message to the Log table
-    
     with open('server_log.txt', 'a') as log_file:
         log_file.write(msg)
 
@@ -126,12 +123,10 @@ def get_algo_keys(filename = "alg_mnemonic.txt"):
     # the algorand public/private keys
         
     mnemonic_secret = "judge machine copper sick invest rule skate pioneer glue effort deny correct negative shop soccer join six merry knee parent maid gasp enhance abstract senior"
-        
     algo_sk = mnemonic.to_private_key(mnemonic_secret)
     algo_pk = mnemonic.to_public_key(mnemonic_secret)
  
     return algo_sk, algo_pk
-
 
 def get_eth_keys(filename = "eth_mnemonic.txt"):
 
@@ -145,7 +140,7 @@ def get_eth_keys(filename = "eth_mnemonic.txt"):
     eth_sk = acct._private_key
 
     return eth_sk, eth_pk
-  
+
 def fill_order(new_order,txes=[]):
     # TODO: 
     # Match orders (same as Exchange Server II)
@@ -257,8 +252,6 @@ def execute_txes(txes):
 @app.route('/address', methods=['POST'])
 def address():
     
-    print("New iteration")
-    
     if request.method == "POST":
         content = request.get_json(silent=True)
         if 'platform' not in content.keys():
@@ -269,21 +262,13 @@ def address():
             return jsonify( f"Error: invalid platform provided: {content['platform']}"  )
         
         if content['platform'] == "Ethereum":
-            print("This is Ethereum")
             #Your code here
-            
             eth_sk, eth_pk = get_eth_keys()
-            print(eth_pk)
-            
             return jsonify( eth_pk )
         
         if content['platform'] == "Algorand":
-            print("This is Algorand")
             #Your code here
-            
             algo_sk, algo_pk = get_algo_keys()
-            print(algo_pk)
-
             return jsonify( algo_pk )
 
 def check_sig(payload,sig):
