@@ -412,32 +412,13 @@ def trade():
             tx_sender = tx['from']
             tx_receiver = tx['to']
             tx_value = tx['value']
-            
-#             if tx_sender != payload.get("sender_pk"):
-#                 print("Wrong sender_pk")
-#                 return jsonify(False)
-            
-#             if tx_receiver != eth_pk:
-#                 print("Wrong eth_pk")
-#                 return jsonify(False)
-            
-#             if tx_value != payload.get("sell_amount"):
-#                 print("Wrong sell_amount")
-#                 return jsonify(False)
-        
-            # Pending to add other Ethereum checks
         
         else:
 
-            print("This is Algorand and we should confirm if the transaction was sent")
-            
             algo_sk, algo_pk = get_algo_keys()
             algod_indexer = connect_to_algo(connection_type="indexer")
             
             response = algod_indexer.search_transactions(txid=tx_id, address = algo_pk)
-            print("response created")
-            print(json.dumps(response, indent = 2, sort_keys=True))
-            
             tx_sender = response['transactions'][0]['sender']
             tx_receiver = response['transactions'][0]['payment-transaction']['receiver']
             tx_value = response['transactions'][0]['payment-transaction']['amount']
@@ -453,10 +434,6 @@ def trade():
         if tx_value != payload.get("sell_amount"):
             print("Wrong sell_amount")
             return jsonify(False)
-            
-            
-            
-
 
         # 3b. Fill the order (as in Exchange Server II) if the order is valid
         
