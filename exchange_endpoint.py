@@ -256,7 +256,6 @@ def execute_txes(txes):
     
     print("Add Ethereum transactions:")
     eth_tx_ids = send_tokens_eth(w3, eth_sk, eth_txes)
-    print("CP8")
     
     for i in range(len(eth_tx_ids)):
         
@@ -271,13 +270,10 @@ def execute_txes(txes):
         
         print("new_tx added")
 
-    print("CP9")
     print("Add Algorand transactions:")
     acl = connect_to_algo()
     alg_tx_ids = send_tokens_algo(acl, algo_sk, algo_txes)   
     print("alg_tx_ids created")
-    
-    print("CP10")
     
     for i in range(len(alg_tx_ids)):
 
