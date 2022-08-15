@@ -386,9 +386,12 @@ def trade():
             print("Platform is Algorand")
             
             algod_indexer = connect_to_algo(connection_type="indexer")
-            
-            tx = algod_indexer.search_transactions(txid=tx_id)
             print("Algorand 1")
+            print(algod_indexer)
+            print("Algorand 1.5")
+            tx = algod_indexer.search_transactions(txid=tx_id)
+            print("Algorand 2")
+            print(tx)
 
 
         # 3b. Fill the order (as in Exchange Server II) if the order is valid
