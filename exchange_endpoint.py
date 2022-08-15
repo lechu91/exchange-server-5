@@ -269,18 +269,18 @@ def execute_txes(txes):
     alg_tx_ids = send_tokens_algo(acl, algo_sk, algo_txes)   
     print("CP2")
     
-    for i in range(len(alg_tx_ids)):
+#     for i in range(len(alg_tx_ids)):
         
-        tx_data = {'platform': algo_txes[i]["platform"],
-                   'receiver_pk': algo_txes[i]["receiver_pk"],
-                   'order_id': int(algo_txes[i]["order_id"]),
-                   'tx_id': alg_tx_ids[i]}
+#         tx_data = {'platform': algo_txes[i]["platform"],
+#                    'receiver_pk': algo_txes[i]["receiver_pk"],
+#                    'order_id': int(algo_txes[i]["order_id"]),
+#                    'tx_id': alg_tx_ids[i]}
         
-        new_tx = TX(**{f:tx_data[f] for f in tx_fields})
-        g.session.add(new_tx)
-        g.session.commit()
+#         new_tx = TX(**{f:tx_data[f] for f in tx_fields})
+#         g.session.add(new_tx)
+#         g.session.commit()
         
-        print("new_tx algo added")
+#         print("new_tx algo added")
     
     return True
     
