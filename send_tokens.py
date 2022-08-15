@@ -62,7 +62,7 @@ def send_tokens_algo( acl, sender_sk, txes):
             tx_ids.append(tx_id)
             time.sleep(5)
             txinfo = wait_for_confirmation_algo(acl, txid=tx_id )
-            print(f"Sent {tx['tx_amount']} microalgo in transaction: {tx_id}\n" )
+            print(f"Sent {tx['tx_amount']} microalgo in transaction: {tx_id}" )
             
         except Exception as e:
             print(e)
@@ -152,6 +152,9 @@ def send_tokens_eth(w3,sender_sk,txes):
                 'to': receiver_pk,
                 'value': tx_amount,
                 'data':b'' }
+        
+        print(tx_dict)
+        print(sender_sk)
         
         print("Is there enough funds?")
         signed_txn = w3.eth.account.sign_transaction(tx_dict, sender_sk)
